@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import { confirmAccount } from "../../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 
+// TODO CSS
 export default function ConfirmAccountView() {
 	const { mutate } = useMutation({
 		mutationFn: confirmAccount,
