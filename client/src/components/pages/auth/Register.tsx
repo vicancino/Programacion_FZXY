@@ -6,6 +6,7 @@ import { createAccount } from "../../../api/AuthApi";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
 
+// TODO CSS
 export default function RegisterView() {
 	const initialValues: UserRegistrationForm = {
 		name: "",
