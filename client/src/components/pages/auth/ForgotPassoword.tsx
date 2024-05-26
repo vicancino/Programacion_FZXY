@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import { requestNewPassword } from "../../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 
+// TODO CSS
 export default function ForgotPassword() {
 	const initialValues: ForgotPasswordForm = {
 		email: "",

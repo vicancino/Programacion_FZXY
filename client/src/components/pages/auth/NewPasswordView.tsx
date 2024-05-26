@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ConfirmToken } from "../../../types";
 import { ToastContainer } from "react-toastify";
 
+// TODO CSS
 export default function NewPasswordView() {
 	const [token, setToken] = useState<ConfirmToken["token"]>("");
 

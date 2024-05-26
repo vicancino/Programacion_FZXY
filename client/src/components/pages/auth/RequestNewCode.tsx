@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import { requestConfirmationCode } from "../../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 
+// TODO CSS
 export default function RegisterView() {
 	const initialValues: RequestConfirmationCodeForm = {
 		email: "",

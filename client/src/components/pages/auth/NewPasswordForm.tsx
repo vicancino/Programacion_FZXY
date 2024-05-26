@@ -10,6 +10,7 @@ type NewPasswordTokenProps = {
 	token: ConfirmToken["token"];
 };
 
+// TODO CSS
 export default function NewPasswordForm(token: NewPasswordTokenProps) {
 	const navigate = useNavigate();
 

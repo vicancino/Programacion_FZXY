@@ -12,6 +12,7 @@ type NewPasswordTokenProps = {
 	setIsValidToken: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+// TODO CSS
 export default function NewPasswordToken({ token, setToken, setIsValidToken }: NewPasswordTokenProps) {
 	const { mutate } = useMutation({
 		mutationFn: validateToken,
