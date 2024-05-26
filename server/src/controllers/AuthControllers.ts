@@ -197,7 +197,7 @@ export class AuthController {
 			const token = new Token();
 			token.Token_Token = generate6digitToken();
 			token.Token_UserID = (await user).User_ID;
-			token.Token_Expires = Date.now() + 60000;
+			token.Token_Expires = Date.now() + 600000;
 
 			// Enviar Email
 			await transporter.sendMail({
@@ -271,7 +271,16 @@ export class AuthController {
 				return res.status(404).json({ error: error.message });
 			}
 
-			res.send({ message: "Token Valido, Define tu nuevo password" });
+			// Buscamos el usuario que corresponde al token entregado
+			const user = await User.findOne({ where: { User_ID: tokenExist.User_ID } });
+
+			// Hash Password
+			const salt = await bcrypt.genSalt(10);
+			user.User_Password = await bcrypt.hash(req.body.password, salt);
+
+			// Guardamos el nuevo usuario con el nuevo password y eliminamos el token que el usuario utilizo para cambiar su contrasena
+			await Promise.allSettled([user.save(), Token.destroy({ where: { Token_UserID: user.User_ID } })]);
+			res.send({ message: "Contrasena cambiada correctamente" });
 		} catch (error) {
 			res.json({ error: error.message });
 		}

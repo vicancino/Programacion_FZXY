@@ -1,9 +1,16 @@
-import type { NewPasswordForm } from "../../../types";
+import type { ConfirmToken, NewPasswordForm } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ErrorMessage";
+import { ToastContainer, toast } from "react-toastify";
+import { useMutation } from "react-query";
+import { updatePasswordWithToken } from "../../../api/AuthApi";
 
-export default function NewPasswordForm() {
+type NewPasswordTokenProps = {
+	token: ConfirmToken["token"];
+};
+
+export default function NewPasswordForm(token: NewPasswordTokenProps) {
 	const navigate = useNavigate();
 
 	const initialValues: NewPasswordForm = {
@@ -18,7 +25,25 @@ export default function NewPasswordForm() {
 		formState: { errors },
 	} = useForm({ defaultValues: initialValues });
 
-	const handleNewPassword = (formData: NewPasswordForm) => {};
+	const { mutate } = useMutation({
+		mutationFn: updatePasswordWithToken,
+		onError: (error: Error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data.message);
+		},
+	});
+
+	const handleNewPassword = (formData: NewPasswordForm) => {
+		const data = {
+			formData,
+			token,
+		};
+		mutate(data);
+		reset();
+		navigate("/login");
+	};
 
 	const password = watch("password");
 
@@ -62,6 +87,7 @@ export default function NewPasswordForm() {
 
 				<input type="submit" value="Establecer Password" />
 			</form>
+			<ToastContainer />
 		</>
 	);
 }

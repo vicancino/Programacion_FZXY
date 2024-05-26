@@ -6,6 +6,7 @@ import {
 	ConfirmToken,
 	RequestConfirmationCodeForm,
 	ForgotPasswordForm,
+	NewPasswordForm,
 } from "../types";
 
 // El endpoint para la API AUTH esta en http:***/api/auth/
@@ -75,6 +76,30 @@ export async function requestNewPassword(email: ForgotPasswordForm) {
 	try {
 		const url = "/forgot-password";
 		const { data } = await API.post(url, email);
+		return data;
+	} catch (error) {
+		if (isAxiosError(error) && error.message) {
+			throw new Error(error.response?.data.error);
+		}
+	}
+}
+
+export async function validateToken(formData: ConfirmToken) {
+	try {
+		const url = "/validate-token";
+		const { data } = await API.post(url, formData);
+		return data;
+	} catch (error) {
+		if (isAxiosError(error) && error.message) {
+			throw new Error(error.response?.data.error);
+		}
+	}
+}
+
+export async function updatePasswordWithToken({ formData, token }: { formData: NewPasswordForm; token: ConfirmToken }) {
+	try {
+		const url = `/update-password/${token}`;
+		const { data } = await API.post(url, formData);
 		return data;
 	} catch (error) {
 		if (isAxiosError(error) && error.message) {
