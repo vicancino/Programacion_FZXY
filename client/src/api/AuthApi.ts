@@ -34,6 +34,7 @@ export async function loginAccount(formData: UserLoginForm) {
 
 		// POST de la Data del Formulario de Login
 		const { data } = await API.post(url, formData);
+		localStorage.setItem("AUTH_TOKEN_JWT", data);
 
 		return data;
 	} catch (error) {

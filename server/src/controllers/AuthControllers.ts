@@ -5,6 +5,7 @@ import Token from "../models/Token.model";
 import { generate6digitToken } from "../utils/token";
 import { transporter } from "../config/nodemailer";
 import { checkPassword } from "../utils/auth";
+import { generateJWT } from "../utils/jwt";
 
 export class AuthController {
 	// Metodo Para la Creacion de una Cuenta (POST)
@@ -127,7 +128,10 @@ export class AuthController {
 				const error = new Error("Password Incorrecto");
 				return res.status(401).json({ error: error.message });
 			}
-			res.send("Autenticado");
+
+			// Generar JSON WEB TOKEN
+			const token = generateJWT({ id: user.User_ID });
+			res.send(token);
 		} catch (error) {}
 	};
 

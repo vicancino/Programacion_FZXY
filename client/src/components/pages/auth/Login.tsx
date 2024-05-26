@@ -24,8 +24,8 @@ function Login() {
 		onError: (error: Error) => {
 			toast.error(error.message);
 		},
-		onSuccess: (data) => {
-			toast.success(data);
+		onSuccess: () => {
+			toast.success("Iniciando Sesion");
 		},
 	});
 
