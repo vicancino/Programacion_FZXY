@@ -42,6 +42,7 @@ routerAuth.post(
 	AuthController.requestConfirmationCode
 );
 
+/*
 routerAuth.post(
 	"/forgot-password",
 	body("email").isEmail().withMessage("E-mail no valido"),
@@ -70,5 +71,6 @@ routerAuth.post(
 	handleInputErros,
 	AuthController.updatePasswordWithToken
 );
+*/
 
 export default routerAuth;

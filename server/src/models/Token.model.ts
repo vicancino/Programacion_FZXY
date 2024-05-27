@@ -1,4 +1,14 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement } from "sequelize-typescript";
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	ForeignKey,
+	BelongsTo,
+	PrimaryKey,
+	AutoIncrement,
+	HasOne,
+} from "sequelize-typescript";
 
 import User from "./Users.model";
 
@@ -6,35 +16,35 @@ import User from "./Users.model";
 	tableName: "Tokens",
 })
 class Token extends Model {
-	// Token_ID
+	// Id del token
 	@PrimaryKey
 	@AutoIncrement
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare Token_ID: number;
+	declare ID: number;
 
-	// Token_Token
+	// Cadena (valor) del Token
 	@Column({
 		type: DataType.STRING,
 	})
-	declare Token_Token: string;
+	declare Token: string;
 
-	// Token_UserID
+	// Id del usuario Asociado al Token -> Tabla Users
 	@ForeignKey(() => User)
 	@Column({
 		type: DataType.BIGINT,
 	})
-	declare Token_UserID: number;
+	declare User_Id: number;
 
 	@BelongsTo(() => User)
-	declare User_ID: User;
+	declare UserId: User;
 
-	// Token_Expires esto puede causar problemas dependiendo de la zona horaria
+	// Tiempo de Expiracion del Token
 	@Column({
 		type: DataType.BIGINT,
 	})
-	declare Token_Expires: number;
+	declare Expires: number;
 }
 
 export default Token;

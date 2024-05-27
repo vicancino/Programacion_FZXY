@@ -3,47 +3,45 @@ import {
 	Column,
 	Model,
 	DataType,
-	AutoIncrement,
-	PrimaryKey,
 	Default,
-	Unique,
-	HasMany,
+	ForeignKey,
+	BelongsTo,
+	PrimaryKey,
+	AutoIncrement,
 } from "sequelize-typescript";
-import Token from "./Token.model";
-import { NonAttribute } from "sequelize";
+import Person from "./Person.model";
 
 @Table({
 	tableName: "Users",
 })
 class User extends Model {
+	// Token_ID
 	@PrimaryKey
 	@AutoIncrement
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare User_ID: number;
+	declare Id: number;
 
-	@Unique(true)
+	@ForeignKey(() => Person)
 	@Column({
-		type: DataType.STRING,
+		type: DataType.INTEGER,
 	})
-	declare User_Email: string;
+	declare Person_Id: number;
 
-	@Column({
-		type: DataType.STRING,
-	})
-	declare User_Name;
+	@BelongsTo(() => Person)
+	declare PersonId: Person;
 
 	@Column({
 		type: DataType.STRING,
 	})
-	declare User_Password: string;
+	declare Password: string;
 
 	@Default(false)
 	@Column({
 		type: DataType.BOOLEAN,
 	})
-	declare User_Confirm: boolean;
+	declare Confirm: boolean;
 }
 
 export default User;

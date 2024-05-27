@@ -3,7 +3,6 @@ import db from "./config/db";
 import routerAuth from "./routes/router.auth";
 
 // Conectamos Base de Datos
-
 async function connectDB() {
 	try {
 		await db.authenticate();
@@ -16,9 +15,7 @@ async function connectDB() {
 connectDB();
 
 const server = express();
-
 const cors = require("cors");
-
 server.use(cors());
 
 server.use(express.json());
