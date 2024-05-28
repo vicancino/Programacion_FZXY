@@ -1,4 +1,4 @@
-import API from "../lib/axios";
+import API_AUTH from "../lib/AxiosAuth";
 import { isAxiosError } from "axios";
 import {
 	UserRegistrationForm,
@@ -17,7 +17,7 @@ export async function createAccount(formData: UserRegistrationForm) {
 		const url = "/create-account";
 
 		// POST de la Data del Formulario de Registro
-		const { data } = await API.post(url, formData);
+		const { data } = await API_AUTH.post(url, formData);
 		console.log(data);
 		return data;
 	} catch (error) {
@@ -33,7 +33,7 @@ export async function loginAccount(formData: UserLoginForm) {
 		const url = "/login";
 
 		// POST de la Data del Formulario de Login
-		const { data } = await API.post(url, formData);
+		const { data } = await API_AUTH.post(url, formData);
 		localStorage.setItem("AUTH_TOKEN_JWT", data);
 
 		return data;
@@ -51,7 +51,7 @@ export async function confirmAccount(token: ConfirmToken) {
 		const url = "/confirm-account";
 
 		// Data del Token que se quiere verificar
-		const { data } = await API.post(url, token);
+		const { data } = await API_AUTH.post(url, token);
 		return data;
 	} catch (error) {
 		// Manejo del tipo de Error
@@ -64,7 +64,7 @@ export async function confirmAccount(token: ConfirmToken) {
 export async function requestConfirmationCode(email: RequestConfirmationCodeForm) {
 	try {
 		const url = "/request-code";
-		const { data } = await API.post(url, email);
+		const { data } = await API_AUTH.post(url, email);
 		return data;
 	} catch (error) {
 		if (isAxiosError(error) && error.message) {
@@ -76,7 +76,7 @@ export async function requestConfirmationCode(email: RequestConfirmationCodeForm
 export async function requestNewPassword(email: ForgotPasswordForm) {
 	try {
 		const url = "/forgot-password";
-		const { data } = await API.post(url, email);
+		const { data } = await API_AUTH.post(url, email);
 		return data;
 	} catch (error) {
 		if (isAxiosError(error) && error.message) {
@@ -88,7 +88,7 @@ export async function requestNewPassword(email: ForgotPasswordForm) {
 export async function validateToken(formData: ConfirmToken) {
 	try {
 		const url = "/validate-token";
-		const { data } = await API.post(url, formData);
+		const { data } = await API_AUTH.post(url, formData);
 		return data;
 	} catch (error) {
 		if (isAxiosError(error) && error.message) {
@@ -100,7 +100,7 @@ export async function validateToken(formData: ConfirmToken) {
 export async function updatePasswordWithToken({ formData, token }: { formData: NewPasswordForm; token: ConfirmToken }) {
 	try {
 		const url = `/update-password/${token}`;
-		const { data } = await API.post(url, formData);
+		const { data } = await API_AUTH.post(url, formData);
 		return data;
 	} catch (error) {
 		if (isAxiosError(error) && error.message) {
