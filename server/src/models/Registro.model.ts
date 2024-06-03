@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement } from "sequelize-typescript";
-import Person from "./Person.model";
+import User from "./User.model";
 import { Col } from "sequelize/lib/utils";
 
 @Table({
@@ -15,14 +15,14 @@ class Registro extends Model {
 	declare Id: number;
 
 	// Id de la persona que marca asistencia
-	@ForeignKey(() => Person)
+	@ForeignKey(() => User)
 	@Column({
 		type: DataType.INTEGER,
 	})
 	declare Person_Id: number;
 
-	@BelongsTo(() => Person)
-	declare PersonId: Person;
+	@BelongsTo(() => User)
+	declare PersonId: User;
 
 	// Hora de entrada de la asistencia
 	@Column({

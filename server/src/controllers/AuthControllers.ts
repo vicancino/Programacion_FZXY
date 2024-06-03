@@ -1,12 +1,12 @@
 import type { Request, Response } from "express";
-import User from "../models/Users.model";
+import Admin from "../models/Admin.model";
 import bcrypt from "bcrypt";
 import Token from "../models/Token.model";
 import { generate6digitToken } from "../utils/token";
 import { transporter } from "../config/nodemailer";
 import { checkPassword } from "../utils/auth";
 import { generateJWT } from "../utils/jwt";
-import Person from "../models/Person.model";
+import User from "../models/User.model";
 
 export class AuthController {
 	// Metodo Para la Creacion de una Cuenta (POST)
@@ -15,45 +15,45 @@ export class AuthController {
 			console.log("Creando cuenta con", req.body);
 
 			// Revisamos si la persona existe
-			const person_exists = await Person.findOne({ where: { Email: req.body.email } });
-			console.log("Resultado Busqueda", person_exists);
+			const user_exists = await User.findOne({ where: { Email: req.body.email } });
+			console.log("Resultado Busqueda", user_exists);
 
 			// Si la persona no existe, entonces creamos la persona asociada con el nombre y su correo
-			if (!person_exists) {
+			if (!user_exists) {
 				console.log("Creando nueva Persona");
-				const person = new Person();
-				person.Email = req.body.email;
-				person.Name = req.body.name;
-				await Promise.allSettled([person.save()]);
+				const user = new User();
+				user.Email = req.body.email;
+				user.Name = req.body.name;
+				await Promise.allSettled([user.save()]);
 			}
 
-			// FIXME Creo que hay un problema con la logica Revisar Entre que el usuario es encontrado
+			// FIXME Creo que hay un problema con la logica Revisar Entre que el admin es encontrado
 			// y luego lo tenemos que buscar denuevo en caso de que no existe
-			const person = await Person.findOne({ where: { Email: req.body.email } });
-			console.log("Resultado de Persona", person.Name, person.Id);
+			const user = await User.findOne({ where: { Email: req.body.email } });
+			console.log("Resultado de Persona", user.Name, user.Id);
 
-			// Buscamos si existe un Usuario que contenga el ID de la persona
-			const user_exist = await User.findOne({ where: { Person_Id: person.Id } });
+			// Buscamos si existe un admin que contenga el ID de la persona
+			const admin_exist = await Admin.findOne({ where: { Person_Id: user.Id } });
 
-			// Si el usuario existe entonces no podemos crear un usuario con el mismo correo y devolvemos un error
-			if (user_exist) {
+			// Si el admin existe entonces no podemos crear un admin con el mismo correo y devolvemos un error
+			if (admin_exist) {
 				const error = new Error("Este Email ya se encuentra registrado");
 				return res.status(409).json({ error: error.message });
 			}
 
-			// Si el usuario no esta registrado lo debemos registrar
-			const user = new User();
+			// Si el admin no esta registrado lo debemos registrar
+			const admin = new Admin();
 
 			// Hash Password
 			const salt = await bcrypt.genSalt(10);
-			user.Password = await bcrypt.hash(req.body.password, salt);
-			user.Person_Id = person.Id;
-			await user.save();
+			admin.Password = await bcrypt.hash(req.body.password, salt);
+			admin.Person_Id = user.Id;
+			await admin.save();
 
 			// Generar token
 			const token = new Token();
 			token.Token = generate6digitToken();
-			token.User_Id = user.Id;
+			token.Admin_Id = admin.Id;
 
 			// Fecha de expiracion para el token
 			// FIXME Usar este tipo de fechas puede causar errores
@@ -62,13 +62,13 @@ export class AuthController {
 			// Enviar Email
 			await transporter.sendMail({
 				from: "FZ-XYZ",
-				to: person.Email,
+				to: user.Email,
 				subject: "Confirma tu cuenta",
 				text: "Hola",
-				html: `<p>Hola: ${person.Name} tu codigo de verificacion es ${token.Token}<p>`,
+				html: `<p>Hola: ${user.Name} tu codigo de verificacion es ${token.Token}<p>`,
 			});
 
-			await Promise.allSettled([user.save(), token.save()]);
+			await Promise.allSettled([admin.save(), token.save()]);
 
 			res.send("Cuenta creada, revisa tu email para confirmarla");
 		} catch (error) {
@@ -101,16 +101,16 @@ export class AuthController {
 			}
 
 			// Buscamos el usuario asociado al token
-			const user = await User.findOne({
-				where: { Id: tokenExist.User_Id },
+			const admin = await Admin.findOne({
+				where: { Id: tokenExist.Admin_Id },
 			});
 
 			// Confirmamos el usuario
-			user.Confirm = true;
+			admin.Confirm = true;
 
 			// Guardamos los cambiso en la base de datos
 			// Eliminamos todos los tokens que esten asociados al usuario
-			await Promise.allSettled([user.save(), Token.destroy({ where: { User_Id: user.Id } })]);
+			await Promise.allSettled([admin.save(), Token.destroy({ where: { Admin_Id: admin.Id } })]);
 			res.send({ message: "Cuenta Confirmada" });
 		} catch (error) {
 			res.json({ error: error.message });
@@ -123,33 +123,33 @@ export class AuthController {
 			const { email, password } = req.body;
 
 			// Buscamos a la persona
-			const person = await Person.findOne({ where: { Email: email } });
+			const user = await User.findOne({ where: { Email: email } });
 
 			// Si la persona no existe
-			if (!person) {
+			if (!user) {
 				const error = new Error("Usuario no encontrado");
 				return res.status(404).json({ error: error.message });
 			}
 
 			// Buscamos al usuario
-			const user = await User.findOne({ where: { Person_Id: person.Id } });
+			const admin = await Admin.findOne({ where: { Person_Id: user.Id } });
 
 			// Verificamos que  el usuario no se ha confirmado
-			if (!user.Confirm) {
+			if (!admin.Confirm) {
 				// Enviaremos un nuevo token para que el usuario se confirme
 				// Creamos un nuevo token
 				const token = new Token();
-				token.User_Id = user.Id;
+				token.Admin_Id = admin.Id;
 				token.Token = generate6digitToken();
 				await token.save();
 
 				// Enviamos el nuevo token al correo
 				await transporter.sendMail({
 					from: "FZ-XYZ",
-					to: person.Email,
+					to: user.Email,
 					subject: "Confirma tu cuenta",
 					text: "Hola",
-					html: `<p>Hola: ${person.Name} tu nuevo codigo de verificacion es ${token.Token}<p>`,
+					html: `<p>Hola: ${user.Name} tu nuevo codigo de verificacion es ${token.Token}<p>`,
 				});
 
 				const error = new Error(
@@ -159,14 +159,14 @@ export class AuthController {
 			}
 
 			// Verificamos que los passwords coincidan
-			const isPasswordCorrect = await checkPassword(password, user.Password);
+			const isPasswordCorrect = await checkPassword(password, admin.Password);
 			if (!isPasswordCorrect) {
 				const error = new Error("Password Incorrecto");
 				return res.status(401).json({ error: error.message });
 			}
 
 			// Generar JSON WEB TOKEN
-			const token = generateJWT({ id: user.Id });
+			const token = generateJWT({ id: admin.Id });
 			res.send(token);
 		} catch (error) {}
 	};
@@ -178,23 +178,23 @@ export class AuthController {
 			const { email } = req.body;
 
 			// Verificamos si el usuario Existe o si esta confirmado
-			const person = await Person.findOne({ where: { Email: email } });
+			const user = await User.findOne({ where: { Email: email } });
 
 			// En caso de que no exista un usuario con el correo ingresado
-			if (!person) {
+			if (!user) {
 				const error = new Error("El Usuario no existe");
 				return res.status(409).json({ error: error.message });
 			}
 
-			const user = await User.findOne({ where: { Person_Id: person.Id } });
+			const admin = await Admin.findOne({ where: { Person_Id: user.Id } });
 
-			if (!user) {
+			if (!admin) {
 				const error = new Error("El usuario no Existe");
 				return res.status(409).json({ error: error.message });
 			}
 
 			// En caso de que el usuario ya estuviese confirmado
-			if (user.Confirm) {
+			if (admin.Confirm) {
 				const error = new Error("El Usuario ya esta confirmado");
 				return res.status(403).json({ error: error.message });
 			}
@@ -203,7 +203,7 @@ export class AuthController {
 			// Generamos el nuevo Token
 			const token = new Token();
 			token.Token = generate6digitToken();
-			token.User_Id = user.Id;
+			token.Admin_Id = admin.Id;
 			token.Expires = Date.now() + 600000;
 
 			// Enviar Email
@@ -212,7 +212,7 @@ export class AuthController {
 				to: email,
 				subject: "Confirma tu cuenta",
 				text: "Hola",
-				html: `<p>Hola: ${person.Name} tu codigo de verificacion es ${token.Token}<p>`,
+				html: `<p>Hola: ${user.Name} tu codigo de verificacion es ${token.Token}<p>`,
 			});
 
 			// Guardamos el token en la base de datos
@@ -235,19 +235,19 @@ export class AuthController {
 			const { email } = req.body;
 
 			// Buscamos la persona por email
-			const person = await Person.findOne({ where: { Email: email } });
+			const user = await User.findOne({ where: { Email: email } });
 
 			// En caso de que no exista un usuario con el correo ingresado
-			if (!person) {
+			if (!user) {
 				const error = new Error("El usuario no esta registrado");
 				return res.status(409).json({ error: error.message });
 			}
 
 			// Buscamos si existe un usuario relacionado con la persona
-			const user = await Person.findOne({ where: { Person_Id: person.Id } });
+			const admin = await User.findOne({ where: { Person_Id: user.Id } });
 
 			// Si el usuario no existe
-			if (!user) {
+			if (!admin) {
 				const error = new Error("El usuario no esta registrado");
 				return res.status(409).json({ error: error.message });
 			}
@@ -256,7 +256,7 @@ export class AuthController {
 			// Generamos el nuevo Token
 			const token = new Token();
 			token.Token = generate6digitToken();
-			token.User_Id = user.Id;
+			token.Admin_Id = admin.Id;
 			token.Expires = Date.now() + 600000;
 
 			// Enviar Email
@@ -336,14 +336,14 @@ export class AuthController {
 			}
 
 			// Buscamos el usuario que corresponde al token entregado
-			const user = await User.findOne({ where: { Id: tokenExist.User_Id } });
+			const admin = await Admin.findOne({ where: { Id: tokenExist.Admin_Id } });
 
 			// Hash Password
 			const salt = await bcrypt.genSalt(10);
-			user.Password = await bcrypt.hash(req.body.password, salt);
+			admin.Password = await bcrypt.hash(req.body.password, salt);
 
 			// Guardamos el nuevo usuario con el nuevo password y eliminamos el token que el usuario utilizo para cambiar su contrasena
-			await Promise.allSettled([user.save(), Token.destroy({ where: { User_Id: user.Id } })]);
+			await Promise.allSettled([admin.save(), Token.destroy({ where: { Admin_Id: admin.Id } })]);
 			res.send({ message: "Contrasena cambiada correctamente" });
 		} catch (error) {
 			res.json({ error: error.message });

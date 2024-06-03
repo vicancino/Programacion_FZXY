@@ -1,9 +1,9 @@
 import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique } from "sequelize-typescript";
 
 @Table({
-	tableName: "Person",
+	tableName: "Users",
 })
-class Person extends Model {
+class User extends Model {
 	// Id de la persona
 	@PrimaryKey
 	@AutoIncrement
@@ -24,4 +24,4 @@ class Person extends Model {
 	declare Name;
 }
 
-export default Person;
+export default User;

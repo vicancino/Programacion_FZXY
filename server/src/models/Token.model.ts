@@ -10,7 +10,7 @@ import {
 	HasOne,
 } from "sequelize-typescript";
 
-import User from "./Users.model";
+import Admin from "./Admin.model";
 
 @Table({
 	tableName: "Tokens",
@@ -31,14 +31,14 @@ class Token extends Model {
 	declare Token: string;
 
 	// Id del usuario Asociado al Token -> Tabla Users
-	@ForeignKey(() => User)
+	@ForeignKey(() => Admin)
 	@Column({
 		type: DataType.BIGINT,
 	})
-	declare User_Id: number;
+	declare Admin_Id: number;
 
-	@BelongsTo(() => User)
-	declare UserId: User;
+	@BelongsTo(() => Admin)
+	declare AdminId: Admin;
 
 	// Tiempo de Expiracion del Token
 	@Column({

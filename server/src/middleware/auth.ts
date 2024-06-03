@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import User from "../models/Users.model";
+import Admin from "../models/Admin.model";
 
 // TODO Implementar AUTORIZACION JSW
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
@@ -19,7 +19,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 		console.log(decoded);
 
 		if (typeof decoded === "object" && decoded.id) {
-			const user = await User.findOne({ where: { User_ID: decoded.id } });
+			const user = await Admin.findOne({ where: { User_ID: decoded.id } });
 			console.log(user);
 		}
 	} catch (error) {

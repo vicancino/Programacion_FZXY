@@ -32,11 +32,12 @@ export type ForgotPasswordForm = Pick<Auth, "email">;
 export type NewPasswordForm = Pick<Auth, "password" | "password_confirmation">;
 
 /** Asists and Logs */
-
 const asistSchema = z.object({
 	name: z.string(),
 	email: z.string().email(),
 	status: z.boolean(),
 });
 
-export type AsistRegistrationFrom = Pick<Auth, "name" | "email">;
+type Asists = z.infer<typeof asistSchema>;
+
+export type AsistRegistrationFrom = Pick<Asists, "name" | "email">;

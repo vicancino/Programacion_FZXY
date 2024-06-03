@@ -9,12 +9,12 @@ import {
 	PrimaryKey,
 	AutoIncrement,
 } from "sequelize-typescript";
-import Person from "./Person.model";
+import User from "./User.model";
 
 @Table({
-	tableName: "Users",
+	tableName: "Admins",
 })
-class User extends Model {
+class Admin extends Model {
 	// Token_ID
 	@PrimaryKey
 	@AutoIncrement
@@ -23,14 +23,14 @@ class User extends Model {
 	})
 	declare Id: number;
 
-	@ForeignKey(() => Person)
+	@ForeignKey(() => User)
 	@Column({
 		type: DataType.INTEGER,
 	})
 	declare Person_Id: number;
 
-	@BelongsTo(() => Person)
-	declare PersonId: Person;
+	@BelongsTo(() => User)
+	declare PersonId: User;
 
 	@Column({
 		type: DataType.STRING,
@@ -44,4 +44,4 @@ class User extends Model {
 	declare Confirm: boolean;
 }
 
-export default User;
+export default Admin;
