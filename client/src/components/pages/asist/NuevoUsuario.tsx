@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 import { AsistRegistrationFrom } from "../../../types";
 
-export default function NuevoCliente() {
+export default function NuevoUsuario() {
 	const initialValues: AsistRegistrationFrom = {
 		name: "",
 		email: "",

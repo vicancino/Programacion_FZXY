@@ -1,26 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
-import { useTranslation } from "react-i18next";
-import { sign_in, sign_out } from "../../state/login/loginSlice";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-	const { t } = useTranslation();
-
-	// manage state of login
+	// Manage state of login
 	const loginstate = useSelector((state: RootState) => state.login.value);
-
 	console.log(loginstate);
+
+	const navigate = useNavigate();
+
 	return (
 		<>
-			<div>{t("Home.Nav1") + t("Home.Nav1")}</div>
-
-			<div></div>
+			<div>Home</div>
 			<div>
-				<button>Login</button>
+				<button onClick={() => navigate("/login")}>Login</button>
 			</div>
-			<div>
-				<button>Logout</button>
-			</div>
+			{loginstate && <button onClick={() => navigate("/administracion")}>Administrar</button>}
 		</>
 	);
 }

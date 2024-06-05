@@ -8,7 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import NewPasswordView from "./components/pages/auth/NewPasswordView";
 import ForgotPassword from "./components/pages/auth/ForgotPassoword";
 import Entrada from "./components/pages/asist/Asistencia";
-import NuevoCliente from "./components/pages/asist/NuevoCliente";
+import NuevoUsuario from "./components/pages/asist/NuevoUsuario";
+import Administracion from "./components/pages/asist/Administracion";
 
 function App() {
 	return (
@@ -24,7 +25,8 @@ function App() {
 					<Route path="/forgot-password" element={<ForgotPassword />}></Route>
 					<Route path="/new-password" element={<NewPasswordView />}></Route>
 					<Route path="/asistencia" element={<Entrada />}></Route>
-					<Route path="/nuevo-registro-persona" element={<NuevoCliente />}></Route>
+					<Route path="/nuevo-registro-persona" element={<NuevoUsuario />}></Route>
+					<Route path="/administracion" element={<Administracion />}></Route>
 				</Routes>
 			</BrowserRouter>
 		</>
