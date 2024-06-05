@@ -22,6 +22,6 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/api/auth", routerAuth);
-server.use("api/asist", routerAsist);
+server.use("/api/asist", routerAsist);
 
 export default server;
