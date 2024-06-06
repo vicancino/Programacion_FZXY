@@ -55,7 +55,7 @@ export default function NuevoUsuario() {
 				<input type="submit" value="Registrar Persona" />
 			</form>
 			<nav>
-				<Link to={"/asistencia"}>Volver lista Personas</Link>
+				<Link to={"/asistencia"}>Volver al inicio</Link>
 			</nav>
 			<ToastContainer />
 		</>

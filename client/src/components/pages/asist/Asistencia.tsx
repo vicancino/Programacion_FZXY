@@ -26,7 +26,7 @@ export default function Entrada() {
 			<div>Bienvenido al Registro de Asistencia</div>
 			<div>Lista de Usuarios Presentes</div>
 			<nav>
-				<Link to={"/nuevo-registro-persona"}>Registrar nuevo Asistente</Link>
+				<Link to={"/nuevo-registro-persona"}>Registrar nuevo Usuario</Link>
 			</nav>
 		</>
 	);
