@@ -36,33 +36,53 @@ export default function ForgotPassword() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleForgotPassword)} noValidate>
-				<div>
-					<label htmlFor="email">Email</label>
-					<input
-						id="email"
-						type="email"
-						placeholder="Email de Registro"
-						{...register("email", {
-							required: "El Email de registro es obligatorio",
-							pattern: {
-								value: /\S+@\S+\.\S+/,
-								message: "E-mail no válido",
-							},
-						})}
-					/>
-					{errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+			<div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen flex items-center justify-center">
+				<div className="bg-white w-1/3 px-6 py-8 rounded-lg mx-10">
+					<form onSubmit={handleSubmit(handleForgotPassword)} noValidate>
+						<div className="flex justify-center text-5xl font-extrabold mb-6">Olvidé mi Contraseña</div>
+						
+						{/* Email Field */}
+						<div className="mt-4">
+							<label className="text-3xl font-bold" htmlFor="email">Email</label>
+							<input
+								id="email"
+								type="email"
+								placeholder="Email de Registro"
+								className="border-2 border-gray-300 p-2 w-full mt-2"
+								{...register("email", {
+									required: "El Email de registro es obligatorio",
+									pattern: {
+										value: /\S+@\S+\.\S+/,
+										message: "E-mail no válido",
+									},
+								})}
+							/>
+							{errors.email && (
+								<div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
+									<ErrorMessage>{errors.email.message}</ErrorMessage>
+								</div>
+							)}
+						</div>
+
+						{/* Submit Button */}
+						<div className="mt-6 p-2 text-2xl rounded-lg font-bold text-white flex items-center justify-center bg-cyan-600 hover:bg-cyan-800">
+							<input className="min-w-full cursor-pointer" type="submit" value="Enviar Instrucciones" />
+						</div>
+					</form>
+
+					{/* Navigation Links */}
+					<nav className="mt-6 text-center">
+						<div className="flex justify-center mt-2 font-bold text-gray-500">
+							<Link to="/login" className="hover:text-gray-700">¿Ya tienes cuenta? Iniciar Sesión</Link>
+						</div>
+						<div className="flex justify-center mt-2 font-bold text-gray-500">
+							<Link to="/register" className="hover:text-gray-700">¿No tienes cuenta? Crea una</Link>
+						</div>
+					</nav>
+
+					<ToastContainer />
 				</div>
-
-				<input type="submit" value="Enviar Instrucciones" />
-			</form>
-
-			<nav>
-				<Link to="/login">¿Ya tienes cuenta? Iniciar Sesión</Link>
-
-				<Link to="/register">¿No tienes cuenta? Crea una</Link>
-			</nav>
-			<ToastContainer />
+			</div>
 		</>
 	);
 }

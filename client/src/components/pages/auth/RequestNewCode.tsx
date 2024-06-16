@@ -45,38 +45,54 @@ export default function RegisterView() {
 
 	return (
 		<>
-			<h1>Solicitar Código de Confirmación</h1>
-			<p>
-				Coloca tu e-mail para recibir {""}
-				<span> un nuevo código</span>
-			</p>
+			<div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen flex items-center justify-center">
+				<div className="bg-white w-1/3 px-6 py-8 rounded-lg mx-10">
+					<h1 className="text-5xl font-extrabold text-center mb-6">Solicitar Código de Confirmación</h1>
+					<p className="text-center text-2xl mb-6">
+						Coloca tu e-mail para recibir <span className="font-bold">un nuevo código</span>
+					</p>
+					
+					<form onSubmit={handleSubmit(handleRequestCode)} noValidate>
+						<div className="mt-4">
+							<label className="text-3xl font-bold" htmlFor="email">Email</label>
+							<input
+								id="email"
+								type="email"
+								placeholder="Email de Registro"
+								className="border-2 border-gray-300 p-2 w-full mt-2"
+								{...register("email", {
+									required: "El Email de registro es obligatorio",
+									pattern: {
+										value: /\S+@\S+\.\S+/,
+										message: "E-mail no válido",
+									},
+								})}
+							/>
+							{errors.email && (
+								<div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
+									<ErrorMessage>{errors.email.message}</ErrorMessage>
+								</div>
+							)}
+						</div>
 
-			<form onSubmit={handleSubmit(handleRequestCode)} noValidate>
-				<div>
-					<label htmlFor="email">Email</label>
-					<input
-						id="email"
-						type="email"
-						placeholder="Email de Registro"
-						{...register("email", {
-							required: "El Email de registro es obligatorio",
-							pattern: {
-								value: /\S+@\S+\.\S+/,
-								message: "E-mail no válido",
-							},
-						})}
-					/>
-					{errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+						<div className="mt-6 p-2 text-2xl rounded-lg font-bold text-white flex items-center justify-center bg-cyan-600 hover:bg-cyan-800">
+							<input className="min-w-full cursor-pointer" type="submit" value="Enviar Código" />
+						</div>
+					</form>
+
+					<nav className="mt-6 text-center">
+						<div className="flex justify-center mt-2 font-bold text-gray-500">
+							<Link to="/login" className="hover:text-gray-700">¿Ya tienes cuenta? Iniciar Sesión</Link>
+						</div>
+						<div className="flex justify-center mt-2 font-bold text-gray-500">
+							<Link to="/forgot-password" className="hover:text-gray-700">¿Olvidaste tu contraseña? Reestablecer</Link>
+						</div>
+					</nav>
+
+					<ToastContainer />
 				</div>
+			</div>
 
-				<input type="submit" value="Enviar Código" />
-			</form>
-
-			<nav>
-				<Link to="/login">¿Ya tienes cuenta? Iniciar Sesión</Link>
-				<Link to="/forgot-password">¿Olvidaste tu contraseña? Reestablecer</Link>
-			</nav>
-			<ToastContainer></ToastContainer>
 		</>
 	);
 }

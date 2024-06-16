@@ -52,7 +52,7 @@ function Login() {
 // hola
 	return (
 		<>
-			<div className="bg-gradient-to-b from-cyan-500 to-cyan-700 h-full min-h-screen flex items-center justify-center">
+			<div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen flex items-center justify-center">
 				<div className=" bg-white w-1/4 px-6 py-8 rounded-lg ml-10 mr-10">
 					<form onSubmit={handleSubmit(handleLogin)}>
 						<div className="flex justify-center text-5xl font-extrabold"> Welcome </div>
