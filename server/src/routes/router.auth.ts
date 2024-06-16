@@ -4,6 +4,69 @@ import { body } from "express-validator";
 import { handleInputErros } from "../middleware";
 import { param } from "express-validator";
 
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     create_acount:
+ *       type: object
+ *       required:
+ *         - name
+ *         - password
+ *         - password_confirmation
+ *         - email
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: insert your username
+ *         password:
+ *           type: string
+ *           description: insert your password
+ *         password_confirmation:
+ *           type: string
+ *           description: repeat your password
+ *         email:
+ *           type: string
+ *           description: your email
+ *       example:
+ *         name: Juan Perez
+ *         password: 123123
+ *         password_confirmation: 123123
+ *         email: juanperez@gmail.com
+ */
+
+
+
+/**
+ * @swagger
+ * tags:
+ *   name: Register a new user
+ *   description: Register a new user to the db
+ * /router.auth.ts:
+ *   post:
+ *     summary: add a user to the register
+ *     tags: [USER]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/create_acount'
+ *     responses:
+ *       200:
+ *         description: Usuario registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/create_acount'
+ *       500:
+ *         description: Some server error
+ *
+ */
+
+
+
 const routerAuth = Router();
 
 routerAuth.post(
