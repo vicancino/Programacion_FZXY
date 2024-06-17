@@ -3,6 +3,8 @@ import ErrorMessage from "../../ErrorMessage";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 import { AsistRegistrationFrom } from "../../../types";
+import { useMutation } from "react-query";
+import { newUser } from "../../../api/AsistApi";
 
 export default function NuevoUsuario() {
 	const initialValues: AsistRegistrationFrom = {
@@ -13,12 +15,19 @@ export default function NuevoUsuario() {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		reset,
 		formState: { errors },
 	} = useForm<AsistRegistrationFrom>();
 
-	const handleRegister = (formData: AsistRegistrationFrom) => {};
+	const { mutate } = useMutation({
+		mutationFn: newUser,
+		onError: () => {},
+		onSuccess: () => {},
+	});
+
+	const handleRegister = (formData: AsistRegistrationFrom) => {
+		mutate(formData);
+	};
 
 	return (
 		<>
@@ -52,7 +61,7 @@ export default function NuevoUsuario() {
 					{errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
 				</div>
 
-				<input type="submit" value="Registrar Persona" />
+				<input type="submit" value="Registrar Usuario" />
 			</form>
 			<nav>
 				<Link to={"/asistencia"}>Volver al inicio</Link>
