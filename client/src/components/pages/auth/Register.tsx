@@ -40,13 +40,13 @@ export default function RegisterView() {
 	return (
 		<>
 			<div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen flex items-center justify-center">
-				<div className="bg-white w-1/3 px-6 py-8 rounded-lg mx-10">
+				<div className="bg-white w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3 px-6 py-8 rounded-lg mx-4 sm:mx-10">
 					<form onSubmit={handleSubmit(handleRegister)} noValidate>
-						<div className="flex justify-center text-5xl font-extrabold mb-6">Register</div>
+						<div className="flex justify-center text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6">Register</div>
 						
 						{/* Email Field */}
 						<div className="mt-4">
-							<label className="text-3xl font-bold" htmlFor="email">Email</label>
+							<label className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold" htmlFor="email">Email</label>
 							<input
 								id="email"
 								type="email"
@@ -61,7 +61,7 @@ export default function RegisterView() {
 								})}
 							/>
 							{errors.email && (
-								<div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
+								<div className="flex justify-center font-extrabold text-red-600 text-sm sm:text-lg md:text-xl lg:text-2xl mt-2">
 									<ErrorMessage>{errors.email.message}</ErrorMessage>
 								</div>
 							)}
@@ -69,7 +69,7 @@ export default function RegisterView() {
 
 						{/* Name Field */}
 						<div className="mt-4">
-							<label className="text-3xl font-bold" htmlFor="name">Nombre</label>
+							<label className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold" htmlFor="name">Nombre</label>
 							<input
 								id="name"
 								type="text"
@@ -80,7 +80,7 @@ export default function RegisterView() {
 								})}
 							/>
 							{errors.name && (
-								<div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
+								<div className="flex justify-center font-extrabold text-red-600 text-sm sm:text-lg md:text-xl lg:text-2xl mt-2">
 									<ErrorMessage>{errors.name.message}</ErrorMessage>
 								</div>
 							)}
@@ -88,7 +88,7 @@ export default function RegisterView() {
 
 						{/* Password Field */}
 						<div className="mt-4">
-							<label className="text-3xl font-bold" htmlFor="password">Password</label>
+							<label className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold" htmlFor="password">Password</label>
 							<input
 								id="password"
 								type="password"
@@ -103,7 +103,7 @@ export default function RegisterView() {
 								})}
 							/>
 							{errors.password && (
-								<div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
+								<div className="flex justify-center font-extrabold text-red-600 text-sm sm:text-lg md:text-xl lg:text-2xl mt-2">
 									<ErrorMessage>{errors.password.message}</ErrorMessage>
 								</div>
 							)}
@@ -111,7 +111,7 @@ export default function RegisterView() {
 
 						{/* Password Confirmation Field */}
 						<div className="mt-4">
-							<label className="text-3xl font-bold" htmlFor="password_confirmation">Repetir Password</label>
+							<label className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold" htmlFor="password_confirmation">Repetir Password</label>
 							<input
 								id="password_confirmation"
 								type="password"
@@ -123,31 +123,32 @@ export default function RegisterView() {
 								})}
 							/>
 							{errors.password_confirmation && (
-								<div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
+								<div className="flex justify-center font-extrabold text-red-600 text-sm sm:text-lg md:text-xl lg:text-2xl mt-2">
 									<ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
 								</div>
 							)}
 						</div>
 
 						{/* Register Button */}
-						<div className="mt-6 p-2 text-2xl rounded-lg font-bold text-white flex items-center justify-center bg-cyan-600 hover:bg-cyan-800">
-							<input className="min-w-full cursor-pointer" type="submit" value="Registrarme" />
+						<div className="mt-6 p-2 text-xl sm:text-2xl rounded-lg font-bold text-white flex items-center justify-center bg-cyan-600 hover:bg-cyan-800">
+							<input className="w-full cursor-pointer" type="submit" value="Registrarme" />
 						</div>
 					</form>
 
 					{/* Navigation Links */}
 					<nav className="mt-4">
 						<div className="flex justify-start mt-2 font-bold text-gray-500">
-							<Link to="/login">Ya tienes cuenta? Inicia Sesion</Link>
+							<Link to="/login">Ya tienes cuenta? Inicia Sesión</Link>
 						</div>
 						<div className="flex justify-start mt-2 font-bold text-gray-500">
-							<Link to="/forgot-password">Olvidaste tu contrasena? Reestablecela</Link>
+							<Link to="/forgot-password">Olvidaste tu contraseña? Reestablecela</Link>
 						</div>
 					</nav>
 
 					<ToastContainer />
 				</div>
 			</div>
+
 		</>
 	);
 }
