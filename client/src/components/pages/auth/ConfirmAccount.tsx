@@ -58,7 +58,10 @@ export default function ConfirmAccountView() {
 					<ToastContainer />
 				</div>
 			</div>
-
+			<nav>
+				<Link to="/request-code">Solicitar un nuevo Código</Link>
+			</nav>
+			<ToastContainer />
 		</>
 	);
 }
