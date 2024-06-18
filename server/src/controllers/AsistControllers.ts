@@ -5,7 +5,6 @@ export class AsistController {
 		try {
 			const users = await User.findAll();
 			const user_names = users.map((user) => [user.dataValues.Name, user.dataValues.Email]);
-			console.log(user_names);
 			res.send(user_names);
 		} catch (error) {
 			console.log(error);
@@ -16,7 +15,6 @@ export class AsistController {
 
 	static async newUser(req, res) {
 		try {
-			console.log(req.body);
 			const email = req.body.email;
 			const name = req.body.name;
 			// Revisamos que el correo entrante no este previamente registrado
@@ -25,6 +23,13 @@ export class AsistController {
 				const error = new Error("El Email ingresado ya se encuentra registrado");
 				return res.status(404).json({ error: error.message });
 			}
+
+			const new_user = new User();
+			new_user.Name = name;
+			new_user.Email = email;
+
+			await Promise.allSettled([new_user.save()]);
+			res.send("Usuario Registrado Correctamente");
 		} catch (error) {
 			console.log(error);
 			// Error de Manejo

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ErrorMessage";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { AsistRegistrationFrom } from "../../../types";
 import { useMutation } from "react-query";
@@ -17,12 +17,17 @@ export default function NuevoUsuario() {
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<AsistRegistrationFrom>();
+	} = useForm<AsistRegistrationFrom>({ defaultValues: initialValues });
 
 	const { mutate } = useMutation({
 		mutationFn: newUser,
-		onError: () => {},
-		onSuccess: () => {},
+		onError: (error: Error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data);
+			reset();
+		},
 	});
 
 	const handleRegister = (formData: AsistRegistrationFrom) => {
