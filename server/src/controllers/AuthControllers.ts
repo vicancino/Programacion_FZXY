@@ -157,16 +157,18 @@ export class AuthController {
 				);
 				return res.status(401).json({ error: error.message });
 			}
-
 			// Verificamos que los passwords coincidan
 			const isPasswordCorrect = await checkPassword(password, admin.Password);
+			
 			if (!isPasswordCorrect) {
 				const error = new Error("Password Incorrecto");
 				return res.status(401).json({ error: error.message });
 			}
 
 			// Generar JSON WEB TOKEN
+			console.log("antes");
 			const token = generateJWT({ id: admin.Id });
+			console.log("despues");
 			res.send(token);
 		} catch (error) {}
 	};
@@ -234,20 +236,24 @@ export class AuthController {
 			// Extraemos el Email
 			const { email } = req.body;
 
+
 			// Buscamos la persona por email
 			const user = await User.findOne({ where: { Email: email } });
+			
 
 			// En caso de que no exista un usuario con el correo ingresado
 			if (!user) {
+	
 				const error = new Error("El usuario no esta registrado");
 				return res.status(409).json({ error: error.message });
 			}
 
 			// Buscamos si existe un usuario relacionado con la persona
-			const admin = await User.findOne({ where: { Person_Id: user.Id } });
+			const admin = await Admin.findOne({ where: { Person_Id: user.dataValues.Id } });
 
 			// Si el usuario no existe
 			if (!admin) {
+	
 				const error = new Error("El usuario no esta registrado");
 				return res.status(409).json({ error: error.message });
 			}
@@ -258,7 +264,7 @@ export class AuthController {
 			token.Token = generate6digitToken();
 			token.Admin_Id = admin.Id;
 			token.Expires = Date.now() + 600000;
-
+			
 			// Enviar Email
 			await transporter.sendMail({
 				from: "FZ-XYZ",
@@ -272,7 +278,7 @@ export class AuthController {
 
 			// Guardamos el token en la base de datos
 			await Promise.allSettled([token.save()]);
-
+			
 			// Respuesta al frontend
 			res.send("Revisa tu email y sigue las instrucciones para reestablecer tu contrasena");
 		} catch (error) {
@@ -290,7 +296,7 @@ export class AuthController {
 
 			// Buscamos si el token existe
 			const tokenExist = await Token.findOne({
-				where: { Token_Token: token },
+				where: { Token: token },
 			});
 
 			// En caso de no existir
@@ -317,6 +323,7 @@ export class AuthController {
 		try {
 			// Extraemos Token
 			const { token } = req.params;
+			console.log(token);
 
 			// Buscamos si el token existe
 			const tokenExist = await Token.findOne({
@@ -349,4 +356,20 @@ export class AuthController {
 			res.json({ error: error.message });
 		}
 	};
+
+	static testClean = async (req: Request, res: Response) => {
+		const testuser = await User.findOne({ where: { Email: req.body.email } });
+		const testadmin = await Admin.findOne({ where: {Person_Id: testuser.Id}});
+		const testtoken = await Token.findOne({ where: {Admin_Id: testadmin.Id}});
+		testadmin.destroy();
+		testuser.destroy();
+		res.json({});
+	}
+
+	static testToken = async (req: Request, res: Response) => {
+		const testuser = await User.findOne({ where: { Email: req.body.email } });
+		const testadmin = await Admin.findOne({ where: {Person_Id: testuser.Id}});
+		const testtoken = await Token.findOne({ where: {Admin_Id: testadmin.Id}});
+		res.json(testtoken.dataValues.Token);
+	}
 }

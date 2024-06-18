@@ -114,7 +114,7 @@ const routerAuth = Router();
  * tags:
  *   name: Register a new user
  *   description: Register a new user to the db
- * /auth/create_account:
+ * /auth/create-account:
  *   post:
  *     summary: add a user to the register
  *     tags: [Register a new user]
@@ -157,7 +157,7 @@ routerAuth.post(
  * tags:
  *   name: Verify token
  *   description: Verify token
- * /auth/confirm_account:
+ * /auth/confirm-account:
  *   post:
  *     summary: Confirm an account via Token
  *     tags: [Verify token]
@@ -389,9 +389,105 @@ routerAuth.post(
 	AuthController.updatePasswordWithToken
 );
 
+/**
+ * @swagger
+ * tags:
+ *   name: Test API
+ *   description: Just an endpoint to test if the testing is working
+ * /auth/test:
+ *   get:
+ *     summary: Test 
+ *     tags: [Test API]
+ *     responses:
+ *       200:
+ *         description: .
+ *         content:
+ *           application/json:
+ *             schema:
+ *               
+ *       500:
+ *         description: Some server error
+ *
+ */
+
 routerAuth.get(
 	"/test",
 	(req, res) => {res.json({});}
 );
+
+
+
+/**
+ * @swagger
+ * tags:
+ *   name: Clean Test
+ *   description: Mean to delete all the register created for the testing process
+ * /auth/test-cleanup:
+ *   delete:
+ *     summary: clean test
+ *     tags: [Clean Test]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: 'juanperez@gmail.com'
+ *     responses:
+ *       200:
+ *         description: .
+ *         content:
+ *           application/json:
+ *             schema:
+ *               
+ *       500:
+ *         description: Some server error
+ *
+ */
+routerAuth.delete(
+	"/test-cleanup",
+	body("email").isEmail().withMessage("E-mail no valido"),
+	AuthController.testClean
+);
+
+/**
+ * @swagger
+ * tags:
+ *   name: Get testing tokens
+ *   description: This ment to get the required token for the testing process
+ * /auth/test-token:
+ *   post:
+ *     summary: testing token
+ *     tags: [Get testing tokens]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: 'juanperez@gmail.com'
+ *     responses:
+ *       200:
+ *         description: .
+ *         content:
+ *           application/json:
+ *             schema:
+ *               
+ *       500:
+ *         description: Some server error
+ *
+ */
+
+routerAuth.post(
+	"/test-token",
+	body("email").isEmail().withMessage("E-mail no valido"),
+	AuthController.testToken
+)
 
 export default routerAuth;

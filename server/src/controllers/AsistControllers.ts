@@ -25,6 +25,7 @@ export class AsistController {
 				const error = new Error("El Email ingresado ya se encuentra registrado");
 				return res.status(404).json({ error: error.message });
 			}
+			res.json({})
 		} catch (error) {
 			console.log(error);
 			// Error de Manejo

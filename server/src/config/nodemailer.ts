@@ -5,8 +5,8 @@ const config = () => {
 		host: "sandbox.smtp.mailtrap.io",
 		port: 2525,
 		auth: {
-			user: "1d7a3baafe3d62",
-			pass: "ba878b6a762f7b",
+			user: "d5faf97ed696a8",
+			pass: "272a755c6f3203",
 		},
 	};
 };
