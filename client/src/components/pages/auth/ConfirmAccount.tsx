@@ -47,7 +47,7 @@ export default function ConfirmAccountView() {
 			</form>
 
 			<nav>
-				<Link to="/auth/request-code">Solicitar un nuevo Código</Link>
+				<Link to="/request-code">Solicitar un nuevo Código</Link>
 			</nav>
 			<ToastContainer />
 		</>
