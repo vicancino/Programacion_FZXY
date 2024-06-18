@@ -79,6 +79,26 @@ import { param } from "express-validator";
  *           description: your email
  *       example:
  *         email: juanperez@gmail.com
+ *     update_password:
+ *       type: object
+ *       required:
+ *         - name
+ *         - password
+ *         - password-confirmation
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: your name
+ *         password:
+ *           type: string
+ *           description: insert your password
+ *         password_confirmation:
+ *           type: string
+ *           description: repeat your password
+ *       example:
+ *         name: Juan Perez
+ *         password: 123123
+ *         password_confirmation: 123123
  */
 
 
@@ -94,10 +114,10 @@ const routerAuth = Router();
  * tags:
  *   name: Register a new user
  *   description: Register a new user to the db
- * /create_account:
+ * /auth/create_account:
  *   post:
  *     summary: add a user to the register
- *     tags: [USER]
+ *     tags: [Register a new user]
  *     requestBody:
  *       required: true
  *       content:
@@ -110,7 +130,8 @@ const routerAuth = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/create_acount'
+ *               type: string
+ *               example: 'Cuenta creada, revisa tu email para confirmarla'
  *       500:
  *         description: Some server error
  *
@@ -136,10 +157,10 @@ routerAuth.post(
  * tags:
  *   name: Verify token
  *   description: Verify token
- * /confirm_account:
+ * /auth/confirm_account:
  *   post:
  *     summary: Confirm an account via Token
- *     tags: [USER]
+ *     tags: [Verify token]
  *     requestBody:
  *       required: true
  *       content:
@@ -148,11 +169,15 @@ routerAuth.post(
  *             $ref: '#/components/schemas/confirm_acount'
  *     responses:
  *       200:
- *         description: Usuario registrado.
+ *         description: Usuario confirmado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/confirm_acount'
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Cuenta Confirmada'
  *       500:
  *         description: Some server error
  *
@@ -172,10 +197,10 @@ routerAuth.post(
  * tags:
  *   name: Login a user to the website
  *   description: Link the register of a user to the current sesion
- * /login:
+ * /auth/login:
  *   post:
  *     summary: Login
- *     tags: [USER]
+ *     tags: [Login a user to the website]
  *     requestBody:
  *       required: true
  *       content:
@@ -188,7 +213,7 @@ routerAuth.post(
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/login'
+ *               $ref: '#/components/schemas/confirm_acount'
  *       500:
  *         description: Some server error
  *
@@ -206,10 +231,10 @@ routerAuth.post(
  * tags:
  *   name: Request recuperation code
  *   description: Reset the confirmation token
- * /request-code:
+ * /auth/request-code:
  *   post:
  *     summary: Reset token
- *     tags: [USER]
+ *     tags: [Request recuperation code]
  *     requestBody:
  *       required: true
  *       content:
@@ -222,7 +247,8 @@ routerAuth.post(
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/request-code'
+ *               type: string
+ *               example: 'Se envio un nuevo token, revise su correo'
  *       500:
  *         description: Some server error
  *
@@ -238,12 +264,12 @@ routerAuth.post(
 /**
  * @swagger
  * tags:
- *   name: Request recuperation code
+ *   name: Forgot Password
  *   description: Sends an email to the users mail account to reset the password
- * /forgot-password:
+ * /auth/forgot-password:
  *   post:
  *     summary: Recover
- *     tags: [USER]
+ *     tags: [Forgot Password]
  *     requestBody:
  *       required: true
  *       content:
@@ -256,7 +282,8 @@ routerAuth.post(
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/forgot-password'
+ *               type: string
+ *               example: 'Revisa tu email y sigue las instrucciones para reestablecer tu contrasena'
  *       500:
  *         description: Some server error
  *
@@ -269,12 +296,83 @@ routerAuth.post(
 	AuthController.forgotPassword
 );
 
+/**
+ * @swagger
+ * tags:
+ *   name: Validate token to reset password
+ *   description: Validate the introduced token, matching with the registered one on the db 
+ * /auth/validate-token:
+ *   post:
+ *     summary: Validate token to reset password
+ *     tags: [Validate token to reset password]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/confirm_acount'
+ *     responses:
+ *       200:
+ *         description: Usuario no registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Token Valido, Define tu nuevo password'
+ *       500:
+ *         description: Some server error
+ *
+ */
+
+
 routerAuth.post(
 	"/validate-token",
 	body("token").notEmpty().withMessage("El Token no puede ir vacio"),
 	handleInputErros,
 	AuthController.validateToken
 );
+
+/**
+ * @swagger
+ * tags:
+ *   name: Update password
+ *   description: Update password
+ * /auth/update-password/:token:
+ *   post:
+ *     summary: Update password
+ *     tags: [Update password]
+ *     parameters:
+ *      - token: token
+ *        in: query
+ *        description: validation token
+ *        required: true
+ *        schema:
+ *         type: integer
+ *         example: 123456789
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/update_password'
+ *     responses:
+ *       200:
+ *         description: Usuario no registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Contrasena cambiada correctamente'
+ *       500:
+ *         description: Some server error
+ *
+ */
 
 routerAuth.post(
 	"/update-password/:token",

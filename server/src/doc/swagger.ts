@@ -7,7 +7,7 @@ const options = {
         openapi: "3.0.0",
         info: { title: "FZ_XYZ", version: "1.0.0"},
     },
-    apis: ["src/routes/router.auth.ts", "src/controllers/AuthControllers.ts"],
+    apis: ["src/routes/router.auth.ts", "src/routes/router.asist.ts"],
 };
 
 // Docs en JSON format
