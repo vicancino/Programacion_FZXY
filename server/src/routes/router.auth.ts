@@ -94,7 +94,7 @@ const routerAuth = Router();
  * tags:
  *   name: Register a new user
  *   description: Register a new user to the db
- * http://localhost:4000/api/auth/create_account:
+ * /create_account:
  *   post:
  *     summary: add a user to the register
  *     tags: [USER]
@@ -134,11 +134,11 @@ routerAuth.post(
 /**
  * @swagger
  * tags:
- *   name: Register a new user
- *   description: Register a new user to the db
- * http://localhost:4000/api/auth/confirm_account:
+ *   name: Verify token
+ *   description: Verify token
+ * /confirm_account:
  *   post:
- *     summary: Confirm an account via JWT
+ *     summary: Confirm an account via Token
  *     tags: [USER]
  *     requestBody:
  *       required: true
@@ -172,7 +172,7 @@ routerAuth.post(
  * tags:
  *   name: Login a user to the website
  *   description: Link the register of a user to the current sesion
- * http://localhost:4000/api/auth/login:
+ * /login:
  *   post:
  *     summary: Login
  *     tags: [USER]
@@ -205,10 +205,10 @@ routerAuth.post(
  * @swagger
  * tags:
  *   name: Request recuperation code
- *   description: Sends an email to the users mail account to reset the password
- * http://localhost:4000/api/auth/request-code:
+ *   description: Reset the confirmation token
+ * /request-code:
  *   post:
- *     summary: Recover
+ *     summary: Reset token
  *     tags: [USER]
  *     requestBody:
  *       required: true
@@ -240,7 +240,7 @@ routerAuth.post(
  * tags:
  *   name: Request recuperation code
  *   description: Sends an email to the users mail account to reset the password
- * http://localhost:4000/api/auth/forgot-password:
+ * /forgot-password:
  *   post:
  *     summary: Recover
  *     tags: [USER]
