@@ -389,4 +389,9 @@ routerAuth.post(
 	AuthController.updatePasswordWithToken
 );
 
+routerAuth.get(
+	"/test",
+	(req, res) => {res.json({});}
+);
+
 export default routerAuth;

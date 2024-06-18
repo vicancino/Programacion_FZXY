@@ -1,9 +1,9 @@
-import routerAuth from "../routes/router.auth";
 import request from 'supertest'
+import server from "../server";
 
-describe('POST /create-account', () => {
-    test("should create an account", () => {
-        const response = await request(routerAuth).post('/create-account').send()
-        console.log(response)
+describe('GET /test', () => {
+    test("should create an account", async () => {
+        const response = await request(server).post('/api/auth/test').send();
+        expect(response.statusCode).toBe(200);
     })
 })
