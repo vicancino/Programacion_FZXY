@@ -10,6 +10,9 @@ import ForgotPassword from "./components/pages/auth/ForgotPassoword";
 import Asistencia from "./components/pages/asist/Asistencia";
 import NuevoUsuario from "./components/pages/asist/NuevoUsuario";
 import Administracion from "./components/pages/asist/Administracion";
+import Actividades from "./components/pages/activ/Actividades";
+import ActividadDetail from "./components/pages/activ/ActividadDetail";
+import Contacto from "./components/pages/cont/Contacto";
 
 function App() {
 	return (
@@ -27,6 +30,9 @@ function App() {
 					<Route path="/asistencia" element={<Asistencia />}></Route>
 					<Route path="/nuevo-registro-persona" element={<NuevoUsuario />}></Route>
 					<Route path="/administracion" element={<Administracion />}></Route>
+					<Route path="/actividades" element={<Actividades/>}></Route>
+					<Route path="/actividad/:id" element={<ActividadDetail />} />
+					<Route path="/contacto" element={<Contacto/>}></Route>
 				</Routes>
 			</BrowserRouter>
 		</>

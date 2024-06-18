@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { useNavigate } from "react-router-dom";
-import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -18,8 +17,9 @@ function Home() {
 
 	return (
 		<>
+			{/*Navbar*/}
 			<nav className="bg-gradient-to-b from-cyan-700 to-cyan-900 py-4">
-				<div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+				<div className="max-w-6x1 mx-auto px-0 sm:px-6 lg:px-8">
 					<div className="relative flex items-center justify-between h-16">
 						<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 							{/* Mobile menu button */}
@@ -67,39 +67,39 @@ function Home() {
 							</button>
 						</div>
 						<div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-							<div className="flex-shrink-0">
-								{/* Logo */}
-								<div className="text-white text-2xl font-extrabold">Logo</div>
-							</div>
 							<div className="hidden sm:block sm:ml-6">
 								<div className="flex space-x-4">
 									{/* Navbar items */}
-									<div className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-										Home
+									<div className="text-white text-2xl font-extrabold px-3 py-2 rounded-md cursor-pointer">
+										Logo
 									</div>
 									<button
-										onClick={() => navigate("/login")}
-										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer"
-									>
-										Login
+										onClick={() => navigate("/contacto")}
+										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
+										Contacto
 									</button>
-									<button className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-										Contactos
-									</button>
-									<button className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
+									<button 
+										onClick={() => navigate("/actividades")}
+										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
 										Actividades
 									</button>
 									<button className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
 										Calendario
 									</button>
-									<button className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-										Proximos Servicios
-									</button>
 								</div>
 							</div>
 						</div>
+						<div className="ml-auto hidden sm:block">
+							<button
+								onClick={() => navigate("/login")}
+								className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer"
+							>
+								Login
+							</button>
+						</div>
 					</div>
 				</div>
+
 				{/* Mobile menu, toggle classes based on menu state. */}
 				<div className="sm:hidden" id="mobile-menu">
 					<div className="px-2 pt-2 pb-3 space-y-1">
@@ -122,13 +122,11 @@ function Home() {
 						<button className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
 							Calendario
 						</button>
-						<button className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-							Proximos Servicios
-						</button>
 					</div>
 				</div>
 			</nav>
 
+			{/*GetStarted */}
 			<div className="bg-cover bg-center h-200 flex justify-center py-40">
 				<div className="text-center bg-white bg-opacity-70 p-4 rounded">
 					<h1 className="text-4xl font-extrabold text-cyan-800">Lorem ipsum dolor.</h1>
@@ -139,6 +137,8 @@ function Home() {
 					</div>
 				</div>
 			</div>
+
+			{/*Quienes somos-hacemos cards */}
 			<div className="flex space-x-20 items-center justify-center">
 				<Card sx={{ maxWidth: 345 }}>
 					<CardActionArea>
