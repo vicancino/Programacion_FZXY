@@ -40,7 +40,7 @@ const Actividades: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen content-center items-center place-items-center justify-center p-6">
+    <div className="bg-gradient-to-b from-cyan-900 to-black h-full min-h-screen content-center items-center place-items-center justify-center p-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {actividades.map((actividad, index) => (
           <ActividadCard

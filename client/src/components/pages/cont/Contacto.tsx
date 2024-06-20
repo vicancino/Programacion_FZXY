@@ -23,7 +23,7 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen flex items-center justify-center">
+    <div className="bg-gradient-to-b from-cyan-900 to-black h-full min-h-screen flex items-center justify-center">
       <div className="bg-white w-full max-w-md px-6 py-8 rounded-lg mx-10">
         <h1 className="text-5xl font-extrabold text-center mb-6">Formulario de Contacto</h1>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>

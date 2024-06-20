@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { useNavigate } from "react-router-dom";
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { FaInstagram } from 'react-icons/fa';
+import { FiMapPin } from 'react-icons/fi';
+import { useState } from 'react';
+import { FaBars } from 'react-icons/fa'; // Importa el ícono de hamburguesa
 
+import logo from '../../img/logo.jpg';
+import fondo_get_started2 from '../../img/fondo_get_started2.jpg'
 
 function Home() {
 	// Manage state of login
@@ -15,170 +16,171 @@ function Home() {
 
 	const navigate = useNavigate();
 
+	const [isHovered, setIsHovered] = useState(false);
+
+	const [isOpen, setIsOpen] = useState(false); // Estado para controlar la visibilidad del menú móvil
+
+  // Función para alternar la visibilidad del menú móvil
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
 	return (
 		<>
 			{/*Navbar*/}
-			<nav className="bg-gradient-to-b from-cyan-700 to-cyan-900 py-4">
-				<div className="max-w-6x1 mx-auto px-0 sm:px-6 lg:px-8">
-					<div className="relative flex items-center justify-between h-16">
-						<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-							{/* Mobile menu button */}
-							<button
-								type="button"
-								className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-								aria-controls="mobile-menu"
-								aria-expanded="false"
-							>
-								<span className="sr-only">Open main menu</span>
-								{/* Icon when menu is closed. */}
-								{/* Menu open: "hidden", Menu closed: "block" */}
-								<svg
-									className="block h-6 w-6"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									aria-hidden="true"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M4 6h16M4 12h16M4 18h16"
-									/>
-								</svg>
-								{/* Icon when menu is open. */}
-								{/* Menu open: "block", Menu closed: "hidden" */}
-								<svg
-									className="hidden h-6 w-6"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									aria-hidden="true"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M6 18L18 6M6 6l12 12"
-									/>
-								</svg>
-							</button>
+			<nav className="bg-black py-4">
+				<div className="w-auto mx-auto px-0 sm:px-6 lg:px-8">
+					<div className="relative flex items-center justify-between h-10">
+						{/* Logo o título */}
+						<div className="flex-shrink-0 hidden sm:block">
+							<img src={logo} alt="Logo" className="w-12 h-12 object-cover rounded-full shadow-lg" />
 						</div>
-						<div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-							<div className="hidden sm:block sm:ml-6">
-								<div className="flex space-x-4">
-									{/* Navbar items */}
-									<div className="text-white text-2xl font-extrabold px-3 py-2 rounded-md cursor-pointer">
-										Logo
-									</div>
-									<button
-										onClick={() => navigate("/contacto")}
-										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-										Contacto
-									</button>
-									<button 
-										onClick={() => navigate("/actividades")}
-										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-										Actividades
-									</button>
-									<button className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-										Calendario
-									</button>
-								</div>
+
+						{/* Menú principal para pantallas medianas y grandes */}
+						<div className="hidden sm:block sm:ml-6">
+							<div className="flex space-x-4">
+								<button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Contacto
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+								<button onClick={() => navigate("/actividades")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Actividades
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+								<button className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Calendario
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
 							</div>
 						</div>
+
+						{/* Botón de Login para pantallas medianas y grandes */}
 						<div className="ml-auto hidden sm:block">
-							<button
-								onClick={() => navigate("/login")}
-								className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer"
-							>
+							<button onClick={() => navigate("/login")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
 								Login
+								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 							</button>
 						</div>
-					</div>
-				</div>
 
-				{/* Mobile menu, toggle classes based on menu state. */}
-				<div className="sm:hidden" id="mobile-menu">
-					<div className="px-2 pt-2 pb-3 space-y-1">
-						{/* Mobile menu items */}
-						<div className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-							Home
-						</div>
+						{/* Icono de menú para móviles */}
 						<button
-							onClick={() => navigate("/login")}
-							className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer"
+							type="button"
+							className="absolute inset-y-0 right-0 pr-4 flex items-center justify-center sm:hidden"
+							onClick={toggleMenu}
 						>
-							Login
+							<FaBars className="h-6 w-6 text-white" />
 						</button>
-						<button className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-							Contactos
-						</button>
-						<button className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-							Actividades
-						</button>
-						<button className="text-white hover:bg-cyan-800 block px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
-							Calendario
-						</button>
+					</div>
+
+					{/* Menú desplegable para móviles */}
+					<div className={`sm:hidden ${isOpen ? 'block' : 'hidden'}`} id="mobile-menu">
+						<div className="px-2 pt-2 pb-3 space-y-1">
+							<button onClick={() => navigate("/login")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+								Login
+								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+							</button>
+							<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+								Contacto
+								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+							</button>
+							<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+								Actividades
+								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+							</button>
+							<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+								Calendario
+								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+							</button>
+						</div>
 					</div>
 				</div>
 			</nav>
 
-			{/*GetStarted */}
-			<div className="bg-cover bg-center h-200 flex justify-center py-40">
-				<div className="text-center bg-white bg-opacity-70 p-4 rounded">
-					<h1 className="text-4xl font-extrabold text-cyan-800">Lorem ipsum dolor.</h1>
-					<h1 className="text-4xl font-extrabold text-cyan-800">Lorem, ipsum.</h1>
-					<h2 className="pt-5">Lorem ipsum dolor sit amet.</h2>
-					<div className="flex justify-center">
-						<button onClick={() => navigate("/login")} className="mt-4 p-2 text-2xl rounded-lg font-bold text-white bg-cyan-600 hover:bg-cyan-800 max-w-30">Get Started</button>
+			<div className="bg-black">
+				{/* Get Started */}
+				<div className="relative bg-cover bg-center h-200 flex justify-center py-40" style={{ backgroundImage: `url(${fondo_get_started2})`}}>
+					<div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-100"></div>
+					<div className="relative text-center bg-opacity-70 p-4 rounded">
+						<h1 className="text-5xl font-extrabold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">Laboratorio de informática</h1>
+						<h1 className="text-4xl font-extrabold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">Universidad Adolfo Ibañez</h1>
+						<h2 className="pt-5 text-white font-manrope">Campus Viña del Mar</h2>
+						<div className="flex justify-center">
+							<button
+								onClick={() => navigate("/login")}
+								onMouseEnter={() => setIsHovered(true)}
+								onMouseLeave={() => setIsHovered(false)}
+								className="relative mt-4 p-2 text-2xl rounded-lg font-bold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope overflow-hidden"
+							>
+								Get Started
+								<span
+									className={`absolute inset-0 transition-all duration-300 ${isHovered ? 'transform scale-x-100' : 'transform scale-x-0'}`}
+									style={{
+										borderBottom: '2px solid white',
+										borderTop: '2px solid white',
+										borderLeft: '2px solid white',
+										borderRight: '2px solid white',
+										borderRadius: '10px',
+										transformOrigin: 'left'
+									}}
+								></span>
+							</button>
+						</div>
 					</div>
 				</div>
+
+				{/* Quiénes somos */}
+				<div className="bg-gradient-to-b from-blue-950 to-sky-900 text-white p-6 md:p-12 my-6 md:my-28 mx-6 md:mx-28 flex flex-col md:flex-row items-start rounded-2xl">
+					<div className="w-full md:w-1/3 flex flex-col justify-start items-start mb-6 md:mb-0">
+						<h2 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">¿Quiénes somos?</h2>
+					</div>
+					<div className="w-full md:w-2/3 pr-0 md:pr-14">
+						<p className="text-lg font-manrope font-extralight">
+							Somos el laboratorio de informática de la Universidad Adolfo Ibañez en el campus de Viña del Mar. Nuestro objetivo es brindar a los estudiantes las mejores herramientas y recursos para su desarrollo académico y profesional en el ámbito de la tecnología y la informática.
+						</p>
+					</div>
+				</div>
+
+				{/* Qué hacemos */}
+				<div className="bg-gradient-to-b from-black to-cyan-950 text-white py-8 px-6 md:px-24 mx-0 md:mx-6 rounded-lg flex flex-col md:flex-row items-start justify-center">
+					{/* Imagen a la izquierda */}
+					<div className="w-full md:w-1/3 pr-0 md:pr-8 mb-6 md:mb-0">
+						<img src="src/img/que_hacemos_img.png" alt="que_hacemos" className="rounded-lg shadow-lg" />
+					</div>
+
+					{/* Texto a la derecha */}
+					<div className="w-full md:w-2/3">
+						<div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-orange-400 bg-clip-text text-transparent mb-8">
+							¿Qué hacemos?
+						</div>
+						<p className="text-lg">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a nulla ac dui interdum congue. Integer ac ex eu arcu dignissim congue non ut tellus. Vivamus nec dolor ac lorem ullamcorper rutrum nec nec lorem. Proin hendrerit felis a elit sagittis, a consectetur orci posuere. Donec non magna eget elit vehicula interdum.
+						</p>
+						<p className="text-lg mt-4">
+							Fusce sed lectus est. Nam gravida urna vitae ultricies mollis. Sed aliquam bibendum est, et laoreet nisl semper eget. Vivamus condimentum libero vitae lorem mollis, a feugiat velit ultrices. Integer ut justo varius, ullamcorper lacus non, sagittis metus. Nullam ut turpis vel quam fringilla eleifend. Vivamus at lacinia magna.
+						</p>
+					</div>
+				</div>
+
+				{/* Footer */}
+				<footer className="bg-black text-white py-8 px-4">
+					<div className="flex justify-center space-x-6">
+						{/* Ícono de Instagram */}
+						<a href="https://www.instagram.com/civil_informatica_uai/" target="_blank" rel="noopener noreferrer">
+							<FaInstagram className="text-3xl hover:text-gray-400 transition-colors duration-300" />
+						</a>
+						
+						{/* Ícono de ubicación */}
+						<a href="https://maps.google.com/?q=Universidad Adolfo Ibáñez - Campus Viña del Mar" target="_blank" rel="noopener noreferrer">
+							<FiMapPin className="text-3xl hover:text-gray-400 transition-colors duration-300" />
+						</a>
+					</div>
+					
+					{/* Texto de ubicación */}
+					<p className="text-center mt-4">Universidad Adolfo Ibáñez, Campus Viña del Mar</p>
+				</footer>
 			</div>
 
-			{/*Quienes somos-hacemos cards */}
-			<div className="flex space-x-20 items-center justify-center">
-				<Card sx={{ maxWidth: 345 }}>
-					<CardActionArea>
-						<CardMedia
-							component="img"
-							height="140"
-							image="/static/images/cards/contemplative-reptile.jpg"
-							alt="green iguana"
-						/>
-						<CardContent>
-							<Typography gutterBottom variant="h5" component="div">
-								¿Quienes somos?
-							</Typography>
-							<Typography variant="body2" color="text.secondary">
-								Lizards are a widespread group of squamate reptiles, with over 6,000
-								species, ranging across all continents except Antarctica
-							</Typography>
-						</CardContent>
-					</CardActionArea>
-				</Card>
-				<Card sx={{ maxWidth: 345 }}>
-					<CardActionArea>
-						<CardMedia
-							component="img"
-							height="140"
-							image="/static/images/cards/contemplative-reptile.jpg"
-							alt="green iguana"
-						/>
-						<CardContent>
-							<Typography gutterBottom variant="h5" component="div">
-								¿Qué hacemos?
-							</Typography>
-							<Typography variant="body2" color="text.secondary">
-								Lizards are a widespread group of squamate reptiles, with over 6,000
-								species, ranging across all continents except Antarctica
-							</Typography>
-						</CardContent>
-					</CardActionArea>
-				</Card>
-			</div>
+
 
 			{loginstate && <button onClick={() => navigate("/administracion")}>Administrar</button>}
 		</>
