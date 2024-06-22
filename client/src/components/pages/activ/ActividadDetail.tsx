@@ -1,30 +1,46 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
-const ActividadDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+import hacking from '../../../img/hacking.jpg'
+import data_science from '../../../img/data_science.jpg'
+import gaming from '../../../img/gaming.jpg'
 
+const actividadData = {
+  1: { title: 'Hacking', description: 'Hackathon Principiantes', imageUrl: hacking },
+  2: { title: 'Data Scince', description: 'Aprende sobre data science', imageUrl: data_science },
+  3: { title: 'Gaming', description: 'Un espacio para jugar', imageUrl: gaming },
+};
+
+const ActividadDetail = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const activity = actividadData[id];
+
+  if (!activity) {
+    return <div>Activity not found</div>;
+  }
 
   return (
-    <div className="bg-gradient-to-b from-cyan-700 to-cyan-900 h-full min-h-screen flex items-center justify-center p-6">
-      <div className="bg-white p-8 rounded-lg shadow-md max-w-lg text-center">
-        <h1 className="text-3xl font-bold mb-4">Detalles de la Actividad {id}</h1>
-        <p className="text-gray-700 mb-4">
-          Aquí puedes agregar información detallada sobre la actividad {id}. Puedes usar contenido
-          dinámico según el ID de la actividad para mostrar diferentes detalles.
-        </p>
-        <button
-          type="button"
-          onClick={() => navigate('/')}
-          className="mt-4 p-2 text-2xl rounded-lg font-bold text-white bg-gray-600 hover:bg-gray-800"
-        >
-          Volver al Menú
-        </button>
+    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${activity.imageUrl})` }}>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className="relative p-4 sm:p-8 flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-5xl font-bold text-white font-manrope pb-4">
+          {activity.title}
+        </h1>
+        <p className="mt-4 text-xl text-white">{activity.description}</p>
+        <div className="mt-4">
+          <Button
+            size="small"
+            color="primary"
+            className="bg-blue-500 text-white hover:bg-blue-700"
+            onClick={() => navigate('/actividades')}
+          >
+            Volver a Actividades
+          </Button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ActividadDetail;
+export default ActividadDetail

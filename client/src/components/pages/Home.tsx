@@ -27,78 +27,85 @@ function Home() {
 
 	return (
 		<>
-			{/*Navbar*/}
-			<nav className="bg-black py-4">
-				<div className="w-auto mx-auto px-0 sm:px-6 lg:px-8">
-					<div className="relative flex items-center justify-between h-10">
-						{/* Logo o título */}
-						<div className="flex-shrink-0 hidden sm:block">
-							<img src={logo} alt="Logo" className="w-12 h-12 object-cover rounded-full shadow-lg" />
-						</div>
+			<div className="relative bg-cover bg-center justify-center" style={{ backgroundImage: `url(${fondo_get_started2})`}}>
+				{/*Navbar*/}
+				<nav className="bg-transparent py-6">
+					<div className="w-auto mx-auto px-0 sm:px-6 lg:px-8">
+						<div className="relative flex items-center justify-between h-10">
+							{/* Logo o título */}
+							<div className="flex-shrink-0 hidden sm:block">
+								<button onClick={() => navigate("/")} className="hover:opacity-80">
+									<img src={logo} alt="Logo" className="w-12 h-12 object-cover rounded-full shadow-lg" />
+								</button>
+							</div>
 
-						{/* Menú principal para pantallas medianas y grandes */}
-						<div className="hidden sm:block sm:ml-6">
-							<div className="flex space-x-4">
-								<button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Contacto
-									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-								</button>
-								<button onClick={() => navigate("/actividades")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Actividades
-									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-								</button>
-								<button className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Calendario
+							{/* Menú principal para pantallas medianas y grandes */}
+							<div className="hidden sm:block sm:ml-6">
+								<div className="flex space-x-4">
+									<button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+										Contacto
+										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+									</button>
+									<button onClick={() => navigate("/actividades")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+										Actividades
+										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+									</button>
+									<button className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+										Calendario
+										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+									</button>
+								</div>
+							</div>
+
+							{/* Botón de Login para pantallas medianas y grandes */}
+							<div className="ml-auto hidden sm:block">
+								<button onClick={() => navigate("/login")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Login
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 							</div>
+
+							{/* Icono de menú para móviles */}
+							<button
+								type="button"
+								className="absolute inset-y-0 right-0 pr-4 flex items-center justify-center sm:hidden"
+								onClick={toggleMenu}
+							>
+								<FaBars className="h-6 w-6 text-white" />
+							</button>
 						</div>
 
-						{/* Botón de Login para pantallas medianas y grandes */}
-						<div className="ml-auto hidden sm:block">
-							<button onClick={() => navigate("/login")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-								Login
-								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-							</button>
-						</div>
+						{/* Menú desplegable para móviles */}
+						<div className={`sm:hidden ${isOpen ? 'block' : 'hidden'}`} id="mobile-menu">
+							<div className="px-2 pt-2 pb-3 space-y-1">
+								<button onClick={() => navigate("/login")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Login
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+								
+								<button onClick={() => navigate("/contacto")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Contacto
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
 
-						{/* Icono de menú para móviles */}
-						<button
-							type="button"
-							className="absolute inset-y-0 right-0 pr-4 flex items-center justify-center sm:hidden"
-							onClick={toggleMenu}
-						>
-							<FaBars className="h-6 w-6 text-white" />
-						</button>
-					</div>
+								<button onClick={() => navigate("/actividades")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Actividades
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
 
-					{/* Menú desplegable para móviles */}
-					<div className={`sm:hidden ${isOpen ? 'block' : 'hidden'}`} id="mobile-menu">
-						<div className="px-2 pt-2 pb-3 space-y-1">
-							<button onClick={() => navigate("/login")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-								Login
-								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-							</button>
-							<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-								Contacto
-								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-							</button>
-							<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-								Actividades
-								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-							</button>
-							<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-								Calendario
-								<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-							</button>
+								<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									Calendario
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+
+							</div>
 						</div>
 					</div>
-				</div>
-			</nav>
+				</nav>
 
-			<div className="bg-black">
 				{/* Get Started */}
-				<div className="relative bg-cover bg-center h-200 flex justify-center py-40" style={{ backgroundImage: `url(${fondo_get_started2})`}}>
+				<div className="relative bg-cover bg-center h-200 flex justify-center py-40">
+					
 					<div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-100"></div>
 					<div className="relative text-center bg-opacity-70 p-4 rounded">
 						<h1 className="text-5xl font-extrabold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">Laboratorio de informática</h1>
@@ -127,9 +134,11 @@ function Home() {
 						</div>
 					</div>
 				</div>
-
+			</div>
+			
+			<div className="bg-black pt-16">
 				{/* Quiénes somos */}
-				<div className="bg-gradient-to-b from-blue-950 to-sky-900 text-white p-6 md:p-12 my-6 md:my-28 mx-6 md:mx-28 flex flex-col md:flex-row items-start rounded-2xl">
+				<div className="bg-gradient-to-b from-blue-950 to-sky-900 text-white md:p-12 my-6 md:my-0 mx-6 md:mx-28 flex md:flex-row items-start rounded-2xl">
 					<div className="w-full md:w-1/3 flex flex-col justify-start items-start mb-6 md:mb-0">
 						<h2 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">¿Quiénes somos?</h2>
 					</div>
@@ -141,7 +150,7 @@ function Home() {
 				</div>
 
 				{/* Qué hacemos */}
-				<div className="bg-gradient-to-b from-black to-cyan-950 text-white py-8 px-6 md:px-24 mx-0 md:mx-6 rounded-lg flex flex-col md:flex-row items-start justify-center">
+				<div className="bg-gradient-to-b from-black to-cyan-950 text-white py-28 px-6 md:px-24 mx-0 md:mx-6 rounded-lg flex flex-col md:flex-row items-start justify-center">
 					{/* Imagen a la izquierda */}
 					<div className="w-full md:w-1/3 pr-0 md:pr-8 mb-6 md:mb-0">
 						<img src="src/img/que_hacemos_img.png" alt="que_hacemos" className="rounded-lg shadow-lg" />
@@ -179,8 +188,6 @@ function Home() {
 					<p className="text-center mt-4">Universidad Adolfo Ibáñez, Campus Viña del Mar</p>
 				</footer>
 			</div>
-
-
 
 			{loginstate && <button onClick={() => navigate("/administracion")}>Administrar</button>}
 		</>
