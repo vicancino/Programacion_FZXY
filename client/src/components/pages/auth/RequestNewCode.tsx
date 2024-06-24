@@ -5,6 +5,7 @@ import ErrorMessage from "../../ErrorMessage";
 import { useMutation } from "react-query";
 import { requestConfirmationCode } from "../../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
 
 // TODO CSS
 export default function RegisterView() {
@@ -43,13 +44,15 @@ export default function RegisterView() {
 		mutate(formData);
 	};
 
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<div className="bg-gradient-to-b from-cyan-900 to-black h-full min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
 				<div className="bg-white w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3 px-6 py-8 rounded-lg mx-4 sm:mx-10">
-					<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-6">Solicitar Código de Confirmación</h1>
+					<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-6">{t('solicitud_codigo')}</h1>
 					<p className="text-center text-xl sm:text-2xl mb-6">
-						Coloca tu e-mail para recibir <span className="font-bold">un nuevo código</span>
+						{t('ingresa_email')} <span className="font-bold">{t('un_nuevo_codigo')}</span>
 					</p>
 					
 					<form onSubmit={handleSubmit(handleRequestCode)} noValidate>
@@ -58,10 +61,10 @@ export default function RegisterView() {
 							<input
 								id="email"
 								type="email"
-								placeholder="Email de Registro"
+								placeholder={t('email_login')}
 								className="border-2 border-gray-300 p-2 w-full mt-2"
 								{...register("email", {
-									required: "El Email de registro es obligatorio",
+									required: t('email_login_obli'),
 									pattern: {
 										value: /\S+@\S+\.\S+/,
 										message: "E-mail no válido",
@@ -76,16 +79,16 @@ export default function RegisterView() {
 						</div>
 
 						<div className="mt-6 p-2 text-xl sm:text-2xl rounded-lg font-bold text-white flex items-center justify-center bg-cyan-600 hover:bg-cyan-800">
-							<input className="min-w-full cursor-pointer" type="submit" value="Enviar Código" />
+							<input className="min-w-full cursor-pointer" type="submit" value={t('enviar_codigo')} />
 						</div>
 					</form>
 
 					<nav className="mt-6 text-center">
 						<div className="flex justify-center mt-2 font-bold text-gray-500">
-							<Link to="/login" className="hover:text-gray-700">¿Ya tienes cuenta? Iniciar Sesión</Link>
+							<Link to="/login" className="hover:text-gray-700">{t('tienes_cuenta')}</Link>
 						</div>
 						<div className="flex justify-center mt-2 font-bold text-gray-500">
-							<Link to="/forgot-password" className="hover:text-gray-700">¿Olvidaste tu contraseña? Reestablecer</Link>
+							<Link to="/forgot-password" className="hover:text-gray-700">{t('olvidar_contra')}</Link>
 						</div>
 					</nav>
 

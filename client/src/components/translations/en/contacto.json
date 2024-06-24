@@ -1,0 +1,15 @@
+{
+  "contact_form": "Contact Form",
+  "name": "Name",
+  "your_name": "Your Name",
+  "email": "Email",
+  "phone": "Phone",
+  "message": "Message",
+  "your_message": "Your Message",
+  "save_contact": "Save",
+  "back_to_menu": "Back to Menu",
+  "nombre_obli_cont": "Name is Required",
+  "email_obli_cont": "Email is Required",
+  "telefono_obli_cont": "Phone is Required",
+  "cont_guardado": "Contact saved successfully!"
+}

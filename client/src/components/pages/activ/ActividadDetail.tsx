@@ -1,17 +1,37 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import hacking from '../../../img/hacking.jpg'
 import data_science from '../../../img/data_science.jpg'
 import gaming from '../../../img/gaming.jpg'
 
-const actividadData = {
-  1: { title: 'Hacking', description: 'Hackathon Principiantes', imageUrl: hacking },
-  2: { title: 'Data Scince', description: 'Aprende sobre data science', imageUrl: data_science },
-  3: { title: 'Gaming', description: 'Un espacio para jugar', imageUrl: gaming },
-};
+
 
 const ActividadDetail = () => {
+
+  const { t } = useTranslation();
+
+  const actividadData = {
+    1: { 
+      title: 'Hacking', 
+      description: t('hackaton'), 
+      imageUrl: hacking 
+    },
+
+    2: { 
+      title: 'Data Scince', 
+      description: t('data_science'), 
+      imageUrl: data_science 
+    },
+
+    3: { 
+      title: 'Gaming', 
+      description: t('gaming'), 
+      imageUrl: gaming 
+    },
+  };
+
   const { id } = useParams();
   const navigate = useNavigate();
   const activity = actividadData[id];
@@ -35,7 +55,7 @@ const ActividadDetail = () => {
             className="bg-blue-500 text-white hover:bg-blue-700"
             onClick={() => navigate('/actividades')}
           >
-            Volver a Actividades
+            {t('volver_actividades')}
           </Button>
         </div>
       </div>

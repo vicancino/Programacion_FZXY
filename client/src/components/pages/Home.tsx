@@ -5,6 +5,9 @@ import { FaInstagram } from 'react-icons/fa';
 import { FiMapPin } from 'react-icons/fi';
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa'; // Importa el ícono de hamburguesa
+import { useTranslation } from 'react-i18next';
+
+import LanguageSwitcher from '../LanguageSwitcher';
 
 import logo from '../../img/logo.jpg';
 import fondo_get_started2 from '../../img/fondo_get_started2.jpg'
@@ -25,11 +28,13 @@ function Home() {
     setIsOpen(!isOpen);
   };
 
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<div className="relative bg-cover bg-center justify-center" style={{ backgroundImage: `url(${fondo_get_started2})`}}>
 				{/*Navbar*/}
-				<nav className="bg-transparent py-6">
+				<nav className="bg-transparent pt-6">
 					<div className="w-auto mx-auto px-0 sm:px-6 lg:px-8">
 						<div className="relative flex items-center justify-between h-10">
 							{/* Logo o título */}
@@ -42,27 +47,34 @@ function Home() {
 							{/* Menú principal para pantallas medianas y grandes */}
 							<div className="hidden sm:block sm:ml-6">
 								<div className="flex space-x-4">
-									<button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-										Contacto
+									<button onClick={() => navigate("/asistencia")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+										{t('asistencia')}
 										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 									</button>
 									<button onClick={() => navigate("/actividades")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-										Actividades
+										{t('actividades')}
 										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 									</button>
 									<button className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-										Calendario
+										{t('calendario')}
+										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+									</button>
+									<button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+										{t('contacto')}
 										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 									</button>
 								</div>
 							</div>
 
 							{/* Botón de Login para pantallas medianas y grandes */}
-							<div className="ml-auto hidden sm:block">
-								<button onClick={() => navigate("/login")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Login
+							<div className="ml-auto sm:block hidden">
+								<button onClick={() => navigate("/login")} className="text-white hover:text-white relative px-2 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									{t('login')}
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
+							</div>
+							<div className="pl-6">
+								<LanguageSwitcher />
 							</div>
 
 							{/* Icono de menú para móviles */}
@@ -79,22 +91,27 @@ function Home() {
 						<div className={`sm:hidden ${isOpen ? 'block' : 'hidden'}`} id="mobile-menu">
 							<div className="px-2 pt-2 pb-3 space-y-1">
 								<button onClick={() => navigate("/login")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Login
-									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-								</button>
-								
-								<button onClick={() => navigate("/contacto")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Contacto
+									{t('login')}
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 
+								<button onClick={() => navigate("/asistencia")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									{t('asistencia')}
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+								
 								<button onClick={() => navigate("/actividades")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Actividades
+									{t('actividades')}
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 
 								<button className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Calendario
+									{t('calendario')}
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+
+								<button onClick={() => navigate("/contacto")} className="text-white hover:text-white block px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+									{t('contacto')}
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 
@@ -108,9 +125,9 @@ function Home() {
 					
 					<div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-100"></div>
 					<div className="relative text-center bg-opacity-70 p-4 rounded">
-						<h1 className="text-5xl font-extrabold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">Laboratorio de informática</h1>
-						<h1 className="text-4xl font-extrabold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">Universidad Adolfo Ibañez</h1>
-						<h2 className="pt-5 text-white font-manrope">Campus Viña del Mar</h2>
+						<h1 className="text-5xl font-extrabold text-white font-manrope">{t('lab_informatica')}</h1>
+						<h1 className="text-4xl font-extrabold text-white font-manrope">{t('adolfo_ibanez')}</h1>
+						<h2 className="pt-5 text-white font-manrope">{t('campus')}</h2>
 						<div className="flex justify-center">
 							<button
 								onClick={() => navigate("/login")}
@@ -118,7 +135,7 @@ function Home() {
 								onMouseLeave={() => setIsHovered(false)}
 								className="relative mt-4 p-2 text-2xl rounded-lg font-bold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope overflow-hidden"
 							>
-								Get Started
+								{t('comenzar')}
 								<span
 									className={`absolute inset-0 transition-all duration-300 ${isHovered ? 'transform scale-x-100' : 'transform scale-x-0'}`}
 									style={{
@@ -140,11 +157,11 @@ function Home() {
 				{/* Quiénes somos */}
 				<div className="bg-gradient-to-b from-blue-950 to-sky-900 text-white md:p-12 my-6 md:my-0 mx-6 md:mx-28 flex md:flex-row items-start rounded-2xl">
 					<div className="w-full md:w-1/3 flex flex-col justify-start items-start mb-6 md:mb-0">
-						<h2 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">¿Quiénes somos?</h2>
+						<h2 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-600 to-orange-300 bg-clip-text text-transparent font-manrope">{t('quienes_somos')}</h2>
 					</div>
 					<div className="w-full md:w-2/3 pr-0 md:pr-14">
 						<p className="text-lg font-manrope font-extralight">
-							Somos el laboratorio de informática de la Universidad Adolfo Ibañez en el campus de Viña del Mar. Nuestro objetivo es brindar a los estudiantes las mejores herramientas y recursos para su desarrollo académico y profesional en el ámbito de la tecnología y la informática.
+							{t('quienes_somos_p')}
 						</p>
 					</div>
 				</div>
@@ -159,13 +176,10 @@ function Home() {
 					{/* Texto a la derecha */}
 					<div className="w-full md:w-2/3">
 						<div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-orange-400 bg-clip-text text-transparent mb-8">
-							¿Qué hacemos?
+							{t('que_hacemos')}
 						</div>
 						<p className="text-lg">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a nulla ac dui interdum congue. Integer ac ex eu arcu dignissim congue non ut tellus. Vivamus nec dolor ac lorem ullamcorper rutrum nec nec lorem. Proin hendrerit felis a elit sagittis, a consectetur orci posuere. Donec non magna eget elit vehicula interdum.
-						</p>
-						<p className="text-lg mt-4">
-							Fusce sed lectus est. Nam gravida urna vitae ultricies mollis. Sed aliquam bibendum est, et laoreet nisl semper eget. Vivamus condimentum libero vitae lorem mollis, a feugiat velit ultrices. Integer ut justo varius, ullamcorper lacus non, sagittis metus. Nullam ut turpis vel quam fringilla eleifend. Vivamus at lacinia magna.
+							{t('que_hacemos_p')}
 						</p>
 					</div>
 				</div>
@@ -185,7 +199,7 @@ function Home() {
 					</div>
 					
 					{/* Texto de ubicación */}
-					<p className="text-center mt-4">Universidad Adolfo Ibáñez, Campus Viña del Mar</p>
+					<p className="text-center mt-4">{t('footer')}</p>
 				</footer>
 			</div>
 

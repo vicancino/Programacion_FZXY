@@ -4,6 +4,7 @@ import ErrorMessage from "../../ErrorMessage";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 type ContactFormInputs = {
@@ -22,20 +23,22 @@ const ContactForm: React.FC = () => {
     console.log(data);
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="bg-gradient-to-b from-cyan-900 to-black h-full min-h-screen flex items-center justify-center">
       <div className="bg-white w-full max-w-md px-6 py-8 rounded-lg mx-10">
-        <h1 className="text-5xl font-extrabold text-center mb-6">Formulario de Contacto</h1>
+        <h1 className="text-5xl font-extrabold text-center mb-6">{t('contact_form')}</h1>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* Name Field */}
+          {/* Nombre */}
           <div className="mt-4">
-            <label className="text-3xl font-bold" htmlFor="name">Nombre</label>
+            <label className="text-3xl font-bold" htmlFor="name">{t('name')}</label>
             <input
               id="name"
               type="text"
-              placeholder="Tu Nombre"
+              placeholder={t('your_name')}
               className="border-2 border-gray-300 p-2 w-full mt-2"
-              {...register("name", { required: "El nombre es obligatorio" })}
+              {...register("name", { required: t('nombre_obli_cont') })}
             />
             {errors.name && (
               <div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
@@ -44,19 +47,19 @@ const ContactForm: React.FC = () => {
             )}
           </div>
 
-          {/* Email Field */}
+          {/* Email */}
           <div className="mt-4">
-            <label className="text-3xl font-bold" htmlFor="email">Email</label>
+            <label className="text-3xl font-bold" htmlFor="email">{t('email')}</label>
             <input
               id="email"
               type="email"
-              placeholder="Tu Email"
+              placeholder={t('email')}
               className="border-2 border-gray-300 p-2 w-full mt-2"
               {...register("email", {
-                required: "El Email es obligatorio",
+                required: t('email_obli_cont'),
                 pattern: {
                   value: /\S+@\S+\.\S+/,
-                  message: "E-mail no válido",
+                  message: t('email_no_valido'),
                 },
               })}
             />
@@ -67,15 +70,15 @@ const ContactForm: React.FC = () => {
             )}
           </div>
 
-          {/* Phone Field */}
+          {/* Telefono*/}
           <div className="mt-4">
-            <label className="text-3xl font-bold" htmlFor="phone">Teléfono</label>
+            <label className="text-3xl font-bold" htmlFor="phone">{t('phone')}</label>
             <input
               id="phone"
               type="tel"
-              placeholder="Tu Número de Teléfono"
+              placeholder={t('phone')}
               className="border-2 border-gray-300 p-2 w-full mt-2"
-              {...register("phone", { required: "El teléfono es obligatorio" })}
+              {...register("phone", { required: t('telefono_obli_cont') })}
             />
             {errors.phone && (
               <div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
@@ -84,14 +87,14 @@ const ContactForm: React.FC = () => {
             )}
           </div>
 
-          {/* Message Field */}
+          {/* Mensaje*/}
           <div className="mt-4">
-            <label className="text-3xl font-bold" htmlFor="message">Mensaje</label>
+            <label className="text-3xl font-bold" htmlFor="message">{t('message')}</label>
             <textarea
               id="message"
-              placeholder="Tu Mensaje"
+              placeholder={t('your_message')}
               className="border-2 border-gray-300 p-2 w-full mt-2"
-              {...register("message", { required: "El mensaje es obligatorio" })}
+              {...register("message", )}
             />
             {errors.message && (
               <div className="flex justify-center font-extrabold text-red-600 text-2xl mt-2">
@@ -100,20 +103,20 @@ const ContactForm: React.FC = () => {
             )}
           </div>
 
-          {/* Buttons */}
+          {/* Botones */}
           <div className="flex justify-between mt-6 space-x-4">
             <button
               type="submit"
               className="flex-1 p-2 text-2xl rounded-lg font-bold text-white bg-cyan-600 hover:bg-cyan-800"
             >
-              Guardar Contacto
+              {t('save_contact')}
             </button>
             <button
               type="button"
               onClick={() => navigate('/')}
               className="flex-1 p-2 text-2xl rounded-lg font-bold text-white bg-gray-600 hover:bg-gray-800"
             >
-              Volver al Menú
+              {t('back_to_menu')}
             </button>
           </div>
         </form>

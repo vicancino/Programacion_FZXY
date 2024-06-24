@@ -1,0 +1,12 @@
+{
+  "registro": "Registro de Asistencia",
+  "registro_nuevo": "Registro de Nuevo Usuario",
+  "email_obli": "El Email de registro es obligatorio",
+  "nombre_obli": "El Nombre de usuario es obligatorio",
+  "lista": "Lista de Usuarios Presentes",
+  "email_registro": "Email de Registro",
+  "nombre_registro": "Nombre de Registro",
+  "registrar": "Registrar Nuevo Usuario",
+  "volver_menu": "Volver al menú",
+  "volver": "Volver atrás"
+}

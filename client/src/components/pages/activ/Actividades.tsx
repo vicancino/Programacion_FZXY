@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from '../../../state/store';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import logo from '../../../img/logo.jpg';
 import hacking from '../../../img/hacking.jpg'
@@ -12,23 +13,25 @@ import data_science from '../../../img/data_science.jpg'
 import gaming from '../../../img/gaming.jpg'
 
 const Actividades = () => {
+  
+  const { t } = useTranslation();
   const cards = [
     {
       id: 1,
       title: 'Hacking',
-      description: 'Hackathon Principiantes',
+      description: t('hackaton'),
       imageUrl: hacking,
     },
     {
       id: 2,
       title: 'Data Science',
-      description: 'Aprende sobre Data Science',
+      description: t('data_science'),
       imageUrl: data_science, 
     },
     {
       id: 3,
       title: 'Gaming',
-      description: 'Un espacio para jugar',
+      description: t('gaming'),
       imageUrl: gaming,
     },
   ];
@@ -62,16 +65,20 @@ const Actividades = () => {
 						{/* Menú principal para pantallas medianas y grandes */}
 						<div className="hidden sm:block sm:ml-6">
 							<div className="flex space-x-4">
-								<button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Contacto
-									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+                <button onClick={() => navigate("/asistencia")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+										{t('asistencia')}
+										<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 								<button onClick={() => navigate("/actividades")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Actividades
+                  {t('actividades')}
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 								<button className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
-									Calendario
+                  {t('calendario')}
+									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
+								</button>
+                <button onClick={() => navigate("/contacto")} className="text-white hover:text-white relative px-3 py-2 rounded-md text-lg font-medium cursor-pointer group">
+                  {t('contacto')}
 									<span className="absolute left-0 bottom-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
 								</button>
 							</div>
@@ -124,7 +131,7 @@ const Actividades = () => {
 			</nav>
 
       <h1 className="text-center text-5xl font-bold text-white font-manrope py-8">
-        Actividades
+        {t('actividades')}
       </h1>
 
       <Grid container spacing={2}>
@@ -156,7 +163,7 @@ const Actividades = () => {
                 component={Link}
                 to={`/actividad/${card.id}`}
                 >
-                  Learn More
+                  {t('saber_mas')}
                 </Button>
               </div>
             </Card>

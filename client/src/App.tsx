@@ -27,10 +27,13 @@ function App() {
 					<Route path="/request-code" element={<RequestNewCode />}></Route>
 					<Route path="/forgot-password" element={<ForgotPassword />}></Route>
 					<Route path="/new-password" element={<NewPasswordView />}></Route>
+
 					<Route path="/asistencia" element={<Asistencia />}></Route>
 					<Route path="/nuevo-registro-persona" element={<NuevoUsuario />}></Route>
 					<Route path="/administracion" element={<Administracion />}></Route>
+
 					<Route path="/contacto" element={<Contacto/>}></Route>
+					
 					<Route path="/actividades" element={<Actividades/>}></Route>
 					<Route path="/actividad/:id" element={<ActividadDetail />} />
 				</Routes>

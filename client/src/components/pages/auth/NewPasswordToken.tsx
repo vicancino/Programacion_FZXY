@@ -4,6 +4,7 @@ import { ConfirmToken } from "../../../types";
 import { useMutation } from "react-query";
 import { validateToken } from "../../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
 import React from "react";
 
 type NewPasswordTokenProps = {
@@ -34,26 +35,28 @@ export default function NewPasswordToken({ token, setToken, setIsValidToken }: N
 		mutate({ token });
 	};
 
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<form>
-				<div>
-					<label>Ingresa el codigo reecibido en tu correo para reestablecer tu contrasena</label>
+				<div className="text-center text-lg sm:text-xl md:text-2xl mb-6">
+					<label>{t('reestablecer_ingresa_codigo')}</label>
 				</div>
-				<label>Código de 6 dígitos</label>
-				<div>
+				<label className="text-xl sm:text-2xl md:text-3xl font-bold block text-center mb-4">{t('codigo6')}</label>
+				<div className="flex justify-center space-x-2">
 					<PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-						<PinInputField />
-						<PinInputField />
-						<PinInputField />
-						<PinInputField />
-						<PinInputField />
-						<PinInputField />
+						<PinInputField className="border-2 border-gray-300 p-2 w-10 sm:w-12 text-center text-xl sm:text-2xl" />
+						<PinInputField className="border-2 border-gray-300 p-2 w-10 sm:w-12 text-center text-xl sm:text-2xl" />
+						<PinInputField className="border-2 border-gray-300 p-2 w-10 sm:w-12 text-center text-xl sm:text-2xl" />
+						<PinInputField className="border-2 border-gray-300 p-2 w-10 sm:w-12 text-center text-xl sm:text-2xl" />
+						<PinInputField className="border-2 border-gray-300 p-2 w-10 sm:w-12 text-center text-xl sm:text-2xl" />
+						<PinInputField className="border-2 border-gray-300 p-2 w-10 sm:w-12 text-center text-xl sm:text-2xl" />
 					</PinInput>
 				</div>
 			</form>
-			<nav>
-				<Link to="/forgot-password">Solicitar un nuevo Código</Link>
+			<nav className="mt-6 text-center">
+				<Link to="/forgot-password">{t('solicitar_codigo')}</Link>
 			</nav>
 			<ToastContainer />
 		</>

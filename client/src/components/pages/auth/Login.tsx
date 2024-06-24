@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { sign_in } from "../../../state/login/loginSlice";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 // TODO CSS
 function Login() {
@@ -49,23 +50,25 @@ function Login() {
 		console.log("Presionado");
 		mutate(formData);
 	};
-// hola
+
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<div className="bg-gradient-to-b from-cyan-900 to-black h-full min-h-screen flex items-center justify-center ">
 				<div className="bg-white w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 px-2 py-8 rounded-lg mx-4 ">
 					<form onSubmit={handleSubmit(handleLogin)}>
-						<div className="flex justify-center text-3xl sm:text-4xl md:text-5xl font-extrabold">Welcome</div>
+						<div className="flex justify-center text-3xl sm:text-4xl md:text-5xl font-extrabold">{t('bienvenido')}</div>
 						<div className="mt-4">
 							<label className="text-xl sm:text-2xl md:text-3xl font-bold">E-mail</label>
 							<div>
 								<input
 									id="email"
 									type="email"
-									placeholder="Type your email address"
+									placeholder={t('email_login')}
 									className="border-2 border-gray-300 p-2 w-full"
 									{...register("email", {
-										required: "El campo E-mail es obligatorio",
+										required: t('email_login_obli'),
 										pattern: {
 											value: /\S+@\S+\.\S+/,
 											message: "E-mail no valido",
@@ -79,14 +82,14 @@ function Login() {
 						</div>
 
 						<div className="mt-4">
-							<label className="text-xl sm:text-2xl md:text-3xl font-bold">Password</label>
+							<label className="text-xl sm:text-2xl md:text-3xl font-bold">{t('contra')}</label>
 							<div>
 								<input
 									type="password"
-									placeholder="Type your password"
+									placeholder={t('contra_place')}
 									className="border-2 border-gray-300 p-2 w-full"
 									{...register("password", {
-										required: "El campo Password es obligatorio",
+										required: t('contra_obli'),
 									})}
 								/>
 								<div className="flex justify-center font-extrabold text-red-600 text-lg sm:text-xl md:text-2xl">
@@ -94,21 +97,21 @@ function Login() {
 								</div>
 							</div>
 							<div className="flex justify-end mt-2 font-bold text-gray-500">
-								<Link to={"/forgot-password"}>Forgot password?</Link>
+								<Link to={"/forgot-password"}>{t('olvidar_contra')}</Link>
 							</div>
 						</div>
 						<div className="mt-4 p-2 text-xl sm:text-2xl rounded-lg font-bold text-white flex items-center justify-center bg-cyan-600 hover:bg-cyan-800">
-							<input className="w-full" type="submit" value="Login" />
+							<input className="w-full" type="submit" value={t('login')}/>
 						</div>
 					</form>
 					<nav>
 						<div className="flex justify-start mt-2 font-bold text-gray-500">
-							<Link to={"/register"}>No tienes cuenta? Regístrate</Link>
+							<Link to={"/register"}>{t('registrarse_login')}</Link>
 						</div>
 						<div className="flex justify-center">
-							<div className="mt-4 p-2 text-xl sm:text-2xl rounded-lg font-bold text-white bg-cyan-600 hover:bg-cyan-800 max-w-30">
+							<div className="mt-4 p-2 text-xl sm:text-2xl rounded-lg font-bold text-white bg-gray-600 hover:bg-gray-800 max-w-30">
 								<Link to={"/"}>
-									<button>Home</button>
+									<button>{t('volver_menu')}</button>
 								</Link>
 							</div>
 						</div>

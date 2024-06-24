@@ -1,0 +1,15 @@
+{
+  "contact_form": "Formulario de Contacto",
+  "name": "Nombre",
+  "your_name": "Tu Nombre",
+  "email": "Email",
+  "phone": "Teléfono",
+  "message": "Mensaje",
+  "your_message": "Tu Mensaje",
+  "save_contact": "Guardar",
+  "back_to_menu": "Volver al Menú",
+  "nombre_obli_cont": "El nombre es obligatorio",
+  "email_obli_cont": "El email es obligatorio",
+  "telefono_obli_cont": "El teléfono es obligatorio",
+  "cont_guardado": "Contacto guardado con éxito!"
+}

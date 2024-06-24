@@ -1,0 +1,12 @@
+{
+  "registro": "Attendance Record",
+  "registro_nuevo": "New User Registration",
+  "email_obli": "Registration Email is Required",
+  "nombre_obli": "Registration Name is Required",
+  "lista": "List of Present Users",
+  "email_registro": "Registration Email",
+  "nombre_registro": "Registration Name",
+  "registrar": "Register New User",
+  "volver_menu": "Back to Menu",
+  "volver": "Back"
+}
