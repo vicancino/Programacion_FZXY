@@ -18,10 +18,10 @@ class Registro extends Model {
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare Person_Id: number;
+	declare User_Id: number;
 
 	@BelongsTo(() => User, "Id")
-	declare PersonId: User;
+	declare UserId: User;
 
 	// Hora de entrada de la asistencia
 	@Column({

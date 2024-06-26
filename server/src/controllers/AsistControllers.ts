@@ -1,4 +1,5 @@
 import Activos from "../models/Activos.model";
+import Registro from "../models/Registro.model";
 import User from "../models/User.model";
 
 export class AsistController {
@@ -60,6 +61,37 @@ export class AsistController {
 			new_activo.User_Id = user_exist.Id;
 			new_activo.HoraEntrada = Date.now();
 			await new_activo.save();
+			res.send({ message: "Usuario Marcado Correctamente" });
+		} catch (error) {
+			console.log(error);
+			// Error de Manejo
+			res.status(500).json({ error: "Hubo un error" });
+		}
+	}
+
+	static async registerExit(req, res) {
+		try {
+			const email_exit = req.body.email;
+
+			const user_exist = await User.findOne({ where: { Email: email_exit } });
+			if (!user_exist) {
+				const error = new Error("El Email ingresado no se encuentra registrado");
+				return res.status(404).json({ error: error.message });
+			}
+			const user_asist = await Activos.findOne({ where: { User_Id: user_exist.Id } });
+
+			if (!user_asist) {
+				const error = new Error("El Email ingresado no se encuentra activo");
+				return res.status(404).json({ error: error.message });
+			}
+
+			const new_registro = new Registro();
+			new_registro.User_Id = user_exist.Id;
+			new_registro.HoraEntrada = user_asist.HoraEntrada;
+			new_registro.HoraSalida = Date.now();
+
+			new_registro.save();
+			Activos.destroy({ where: { User_Id: user_exist.Id } });
 		} catch (error) {
 			console.log(error);
 			// Error de Manejo

@@ -23,9 +23,6 @@ class Activos extends Model {
 		type: DataType.BIGINT,
 	})
 	declare HoraEntrada: number;
-
-	@BelongsTo(() => User, "Id")
-	declare user: User;
 }
 
 export default Activos;
