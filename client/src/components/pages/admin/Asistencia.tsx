@@ -38,11 +38,13 @@ export default function Entrada() {
 		},
 	});
 
+	// Marcar Entrada usuario
 	const handleAsistencia = (formData: AsistRegistrationFrom) => {
 		mutate(formData);
+		refetch();
 	};
 	// Listado Usuarios
-	const { data = [] } = useQuery<Activo[]>({
+	const { data = [], refetch } = useQuery<Activo[]>({
 		queryFn: getActivos,
 	});
 
@@ -52,8 +54,10 @@ export default function Entrada() {
 		onSuccess: () => {},
 	});
 
+	// Marcar Salida Usuario
 	const handleSalida = (email: string) => {
 		mutateSalida(email);
+		refetch();
 	};
 
 	const user_list = data.map((item: Activo, index: number) => (
