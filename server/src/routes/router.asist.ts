@@ -9,4 +9,6 @@ routerAsist.post("/new-user", AsistController.newUser);
 
 routerAsist.post("/register-asist", AsistController.registerAsist);
 
+routerAsist.get("/actives", AsistController.getActives);
+
 export default routerAsist;

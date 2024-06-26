@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, BelongsTo } from "sequelize-typescript";
 import User from "./User.model";
 
 @Table({
@@ -13,21 +13,19 @@ class Activos extends Model {
 	})
 	declare Id: number;
 
-	// Id de la persona que marca asistencia
-	@ForeignKey(() => User)
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare Person_Id: number;
-
-	@BelongsTo(() => User)
-	declare PersonId: User;
+	declare User_Id: number;
 
 	// Hora de entrada de la asistencia
 	@Column({
 		type: DataType.BIGINT,
 	})
 	declare HoraEntrada: number;
+
+	@BelongsTo(() => User, "Id")
+	declare user: User;
 }
 
 export default Activos;

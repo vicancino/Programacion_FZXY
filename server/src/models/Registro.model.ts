@@ -20,7 +20,7 @@ class Registro extends Model {
 	})
 	declare Person_Id: number;
 
-	@BelongsTo(() => User)
+	@BelongsTo(() => User, "Id")
 	declare PersonId: User;
 
 	// Hora de entrada de la asistencia

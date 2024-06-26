@@ -27,9 +27,9 @@ export default function Entrada() {
 	});
 
 	const handleAsistencia = (formData: AsistRegistrationFrom) => {
-		console.log(formData);
 		mutate(formData);
 	};
+	// Listado Usuarios
 
 	return (
 		<>
@@ -71,9 +71,11 @@ export default function Entrada() {
 					</div>
 				</div>
 
-				<nav>
+				<nav className="text-center mt-4">
 					<Link to={"/nuevo-registro-usuario"}>Registrar nuevo Usuario</Link>
 				</nav>
+
+				<div className="text-center text-3xl mt-10 font-bold">Listado de Usuarios Activos</div>
 			</div>
 			<ToastContainer />
 		</>

@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique, HasOne } from "sequelize-typescript";
+import Activos from "./Activos.model";
 
 @Table({
 	tableName: "Users",
@@ -22,6 +23,10 @@ class User extends Model {
 		type: DataType.STRING,
 	})
 	declare Name;
+
+	// Relacion con Activos
+	@HasOne(() => Activos, "User_Id")
+	declare Activo;
 }
 
 export default User;

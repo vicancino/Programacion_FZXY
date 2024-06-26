@@ -49,7 +49,7 @@ export class AsistController {
 				return res.status(404).json({ error: error.message });
 			}
 
-			const activo_exist = await Activos.findOne({ where: { Person_Id: user_exist.Id } });
+			const activo_exist = await Activos.findOne({ where: { User_Id: user_exist.Id } });
 
 			if (activo_exist) {
 				const error = new Error("El usuario ingresao ya se encuentra presente");
@@ -57,9 +57,23 @@ export class AsistController {
 			}
 
 			const new_activo = new Activos();
-			new_activo.Person_Id = user_exist.Id;
+			new_activo.User_Id = user_exist.Id;
 			new_activo.HoraEntrada = Date.now();
 			await new_activo.save();
+		} catch (error) {
+			console.log(error);
+			// Error de Manejo
+			res.status(500).json({ error: "Hubo un error" });
+		}
+	}
+
+	static async getActives(req, res) {
+		try {
+			const actives = await User.findAll({
+				attributes: { exclude: ["createdAt", "updatedAt", "Id"] },
+				include: [{ model: Activos, attributes: ["HoraEntrada"], required: true }],
+			});
+			res.send(actives);
 		} catch (error) {
 			console.log(error);
 			// Error de Manejo
