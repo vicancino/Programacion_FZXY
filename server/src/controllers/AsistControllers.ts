@@ -1,3 +1,4 @@
+import Activos from "../models/Activos.model";
 import User from "../models/User.model";
 
 export class AsistController {
@@ -30,6 +31,35 @@ export class AsistController {
 
 			await Promise.allSettled([new_user.save()]);
 			res.send("Usuario Registrado Correctamente");
+		} catch (error) {
+			console.log(error);
+			// Error de Manejo
+			res.status(500).json({ error: "Hubo un error" });
+		}
+	}
+
+	static async registerAsist(req, res) {
+		try {
+			const user_email = req.body.email;
+
+			const user_exist = await User.findOne({ where: { Email: user_email } });
+
+			if (!user_exist) {
+				const error = new Error("El Email ingresado no se encuentra registrado");
+				return res.status(404).json({ error: error.message });
+			}
+
+			const activo_exist = await Activos.findOne({ where: { Person_Id: user_exist.Id } });
+
+			if (activo_exist) {
+				const error = new Error("El usuario ingresao ya se encuentra presente");
+				return res.status(404).json({ error: error.message });
+			}
+
+			const new_activo = new Activos();
+			new_activo.Person_Id = user_exist.Id;
+			new_activo.HoraEntrada = Date.now();
+			await new_activo.save();
 		} catch (error) {
 			console.log(error);
 			// Error de Manejo

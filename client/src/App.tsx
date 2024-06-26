@@ -7,12 +7,13 @@ import RequestNewCode from "./components/pages/auth/RequestNewCode";
 import "react-toastify/dist/ReactToastify.css";
 import NewPasswordView from "./components/pages/auth/NewPasswordView";
 import ForgotPassword from "./components/pages/auth/ForgotPassoword";
-import Asistencia from "./components/pages/asist/Asistencia";
-import NuevoUsuario from "./components/pages/asist/NuevoUsuario";
-import Administracion from "./components/pages/asist/Administracion";
+import Asistencia from "./components/pages/admin/Asistencia";
+import NuevoUsuario from "./components/pages/admin/NuevoUsuario";
 import Actividades from "./components/pages/activ/Actividades";
 import ActividadDetail from "./components/pages/activ/ActividadDetail";
 import Contacto from "./components/pages/cont/Contacto";
+import AdminLayout from "./components/pages/admin/AdminLayout";
+import Calentario from "./components/pages/admin/Calentario";
 
 function App() {
 	return (
@@ -27,12 +28,14 @@ function App() {
 					<Route path="/request-code" element={<RequestNewCode />}></Route>
 					<Route path="/forgot-password" element={<ForgotPassword />}></Route>
 					<Route path="/new-password" element={<NewPasswordView />}></Route>
-					<Route path="/asistencia" element={<Asistencia />}></Route>
-					<Route path="/nuevo-registro-usuario" element={<NuevoUsuario />}></Route>
-					<Route path="/administracion" element={<Administracion />}></Route>
-					<Route path="/actividades" element={<Actividades/>}></Route>
+					<Route path="/actividades" element={<Actividades />}></Route>
 					<Route path="/actividad/:id" element={<ActividadDetail />} />
-					<Route path="/contacto" element={<Contacto/>}></Route>
+					<Route path="/contacto" element={<Contacto />}></Route>
+					<Route element={<AdminLayout />}>
+						<Route path="/asistencia" element={<Asistencia />}></Route>
+						<Route path="/nuevo-registro-usuario" element={<NuevoUsuario />}></Route>
+						<Route path="/calendario" element={<Calentario />}></Route>
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</>

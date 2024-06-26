@@ -2,9 +2,9 @@ import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, Auto
 import User from "./User.model";
 
 @Table({
-	tableName: "Registro",
+	tableName: "Activos",
 })
-class Registro extends Model {
+class Activos extends Model {
 	// Id Registro de Asistencia
 	@PrimaryKey
 	@AutoIncrement
@@ -28,12 +28,6 @@ class Registro extends Model {
 		type: DataType.BIGINT,
 	})
 	declare HoraEntrada: number;
-
-	// Hora de salida de la asistencia
-	@Column({
-		type: DataType.BIGINT,
-	})
-	declare HoraSalida: number;
 }
 
-export default Registro;
+export default Activos;

@@ -20,9 +20,24 @@ export async function newUser(formData: AsistRegistrationFrom) {
 		// URL del endpoint de la API
 		const url = "/new-user";
 
-		// GET del request del fronted
+		// POST del request del fronted
 		const { data } = await API_ASIST.post(url, formData);
-		console.log(data);
+
+		return data;
+	} catch (error) {
+		if (isAxiosError(error) && error.message) {
+			throw new Error(error.response?.data.error);
+		}
+	}
+}
+
+export async function registrarAsistencia(formData: AsistRegistrationFrom) {
+	try {
+		// URL del endpot de la API
+		const url = "register-asist";
+
+		// POST del request del frontend
+		const { data } = await API_ASIST.post(url, formData);
 		return data;
 	} catch (error) {
 		if (isAxiosError(error) && error.message) {
