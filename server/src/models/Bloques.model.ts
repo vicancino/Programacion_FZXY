@@ -3,7 +3,7 @@ import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from "seque
 @Table({
 	tableName: "Bloques",
 })
-class Bloques extends Model {
+class Bloque extends Model {
 	// Id Registro de Asistencia
 	@PrimaryKey
 	@AutoIncrement
@@ -38,4 +38,4 @@ class Bloques extends Model {
 	declare Razon: string;
 }
 
-export default Bloques;
+export default Bloque;
