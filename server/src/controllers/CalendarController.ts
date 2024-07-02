@@ -33,10 +33,9 @@ export class CalendarController {
 		}
 	}
 
+	// FIXME Agregar try catch
 	static async eliminarHora(req: Request, res: Response) {
 		const dia_exists = await Dias.findOne({ where: { Nombre_Dia: req.body.Nombre_Dia.toLowerCase() } });
-
-		console.log(dia_exists);
 
 		if (dia_exists === null) {
 			const error = new Error("El dia proporcionado no tienen ningun bloque asignado");
@@ -51,8 +50,6 @@ export class CalendarController {
 				Razon: req.body.Razon,
 			},
 		});
-
-		console.log(bloque_eliminar);
 
 		if (!bloque_eliminar) {
 			const error = new Error("El bloque designado no existe");
@@ -69,5 +66,18 @@ export class CalendarController {
 		});
 
 		res.send("Bloque eliminado correctamente");
+	}
+
+	static async listarHoras(req: Request, res: Response) {
+		try {
+			const list_bloques = await Dias.findAll({
+				attributes: { exclude: ["createdAt", "updatedAt", "Id"] },
+				include: [{ model: Bloque, attributes: ["Codigo", "Horario", "Encargado", "Razon"], required: true }],
+			});
+			res.send(list_bloques);
+		} catch (error) {
+			console.log(error);
+			res.status(500).json({ error: "Hubo un error" });
+		}
 	}
 }
