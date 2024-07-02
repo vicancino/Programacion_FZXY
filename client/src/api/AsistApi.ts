@@ -46,7 +46,7 @@ export async function registrarAsistencia(formData: AsistRegistrationFrom) {
 	}
 }
 
-export async function registrarSaluda(email: string) {
+export async function registrarSalida(email: string) {
 	try {
 		// Url del endpoint de la API
 		const url = "/register-exit";

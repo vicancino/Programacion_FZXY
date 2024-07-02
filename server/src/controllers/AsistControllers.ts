@@ -92,6 +92,7 @@ export class AsistController {
 
 			new_registro.save();
 			Activos.destroy({ where: { User_Id: user_exist.Id } });
+			res.send({ message: "Salida registrada existosamente" });
 		} catch (error) {
 			console.log(error);
 			// Error de Manejo

@@ -41,3 +41,16 @@ const asistSchema = z.object({
 type Asists = z.infer<typeof asistSchema>;
 
 export type AsistRegistrationFrom = Pick<Asists, "name" | "email">;
+
+/** Calendar */
+
+const calendarSchema = z.object({
+	codigo: z.string(),
+	horario: z.string(),
+	encargado: z.string(),
+	razon: z.string(),
+});
+
+type Block = z.infer<typeof calendarSchema>;
+
+export type BlockRegistrationFrom = Pick<Block, "codigo" | "horario" | "encargado" | "razon">;

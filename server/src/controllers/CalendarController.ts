@@ -17,8 +17,8 @@ export class CalendarController {
 
 			const dia = await Dias.findOne({ where: { Nombre_Dia: nombre_dia } });
 
+			// TODO validar 1: la informacion del bloque entrante  2: que el bloque entrante no exista previamente
 			const new_bloque = new Bloque();
-
 			new_bloque.Dia_Id = dia.Id;
 			new_bloque.Horario = req.body.Horario;
 			new_bloque.Razon = req.body.Razon;

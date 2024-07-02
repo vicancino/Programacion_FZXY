@@ -3,8 +3,8 @@ import { AsistRegistrationFrom } from "../../../types";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ErrorMessage";
 import { ToastContainer, toast } from "react-toastify";
-import { useMutation, useQuery } from "react-query";
-import { getActivos, registrarAsistencia, registrarSaluda } from "../../../api/AsistApi";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { getActivos, registrarAsistencia, registrarSalida } from "../../../api/AsistApi";
 
 interface Activo {
 	Email: string;
@@ -15,6 +15,7 @@ interface Activo {
 }
 
 export default function Entrada() {
+	const queryClient = useQueryClient();
 	// TODO La idea de pedir nombre u correo es hacer un autocompletado, es decir si insertas en nombre que se rellene solo el correo
 	// Foro
 	const initialValues: AsistRegistrationFrom = {
@@ -26,31 +27,43 @@ export default function Entrada() {
 		register,
 		formState: { errors },
 		handleSubmit,
+		reset,
 	} = useForm<AsistRegistrationFrom>({ defaultValues: initialValues });
 
-	const { mutate } = useMutation({
+	const { mutate: mutateEntrada } = useMutation({
 		mutationFn: registrarAsistencia,
 		onError: (error: Error) => {
 			toast.error(error.message);
 		},
 		onSuccess: (data) => {
 			toast.success(data);
+			// Actualizamos el listado de clientes
+			queryClient.invalidateQueries("Listado");
+			reset();
 		},
 	});
 
 	// Marcar Entrada usuario
 	const handleAsistencia = (formData: AsistRegistrationFrom) => {
-		mutate(formData);
+		mutateEntrada(formData);
 	};
+
 	// Listado Usuarios
 	const { data = [] } = useQuery<Activo[]>({
+		queryKey: ["Listado"],
 		queryFn: getActivos,
 	});
 
 	const { mutate: mutateSalida } = useMutation({
-		mutationFn: registrarSaluda,
-		onError: () => {},
-		onSuccess: () => {},
+		mutationFn: registrarSalida,
+		onError: (error: Error) => {
+			toast.error(error.message);
+		},
+		onSuccess: (data) => {
+			toast.success(data.message);
+			// Actualizamos el listado de clientes
+			queryClient.invalidateQueries("Listado");
+		},
 	});
 
 	// Marcar Salida Usuario
