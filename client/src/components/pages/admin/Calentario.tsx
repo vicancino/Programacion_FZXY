@@ -3,6 +3,7 @@ import { BlockRegistrationFrom } from "../../../types";
 import { useQuery } from "react-query";
 import { listarBloques } from "../../../api/CalendarApi";
 import { fechaHoy } from "../../../api/CalendarApi";
+import { useEffect } from "react";
 
 interface Day {
 	Nombre_Dia: String;
@@ -21,6 +22,8 @@ interface Block {
 	Horario: String;
 	Encargado: String;
 	Razon: String;
+    Dia_Id: number;
+    Hora_Id: number;
 }
 
 export default function Calentario() {
@@ -36,41 +39,50 @@ export default function Calentario() {
 		queryFn: fechaHoy,
 	});
 
+    
+
     const hoy = fecha?.hoy??'Fecha no disponible';
     const dia = fecha?.dia??'Día no disponible';
     const semana = fecha?.semana??'Semana no disponible';
 
     const diasDeLaSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
-	console.log(listado);
+	useEffect(() => {
+        if (listado) {
+          agregarEventosAlCalendario(eventos);
+        }
+      }, [listado]);
 
     const eventos: Block[] = [
-        { Codigo: "1", Horario: "2024-07-10 08:00", Encargado: "Juan", Razon: "Reunión de equipo" },
-        { Codigo: "2", Horario: "2024-07-11 09:00", Encargado: "Ana", Razon: "Presentación de proyecto" },
+        { Codigo: "1", Horario: "08:45 - 09:55", Encargado: "Juan", Razon: "Reunión de equipo", Dia_Id: 1, Hora_Id: 1 },
+        { Codigo: "2", Horario: "10:15 - 11:25", Encargado: "Ana", Razon: "Presentación de proyecto", Dia_Id: 2, Hora_Id:2 },
         // Agrega más eventos según sea necesario
     ];
+      
 
     function agregarEventosAlCalendario(eventos: Block[]) {
-        eventos.forEach(evento => {
+
+        eventos.forEach((evento) => {
             // Obtener día y hora del evento
-            const diaSemana = fechaHora.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
-            const hora = fechaHora.getHours();
-            const minutos = fechaHora.getMinutes();
+            const diaSemana = evento.Dia_Id;
+            const hora = evento.Horario;
+            const horaDia = evento.Hora_Id;
+
+            const idCelda = `celda-${diaSemana}-${horaDia}`;
+            const celda = document.getElementById(idCelda);
 
             // Seleccionar la celda correspondiente en el calendario
-            const celdaCalendario = document.querySelectorAll('.grid-cols-7 > div')[diaSemana];
 
             // Crear elemento de evento
-            const eventoElemento = document.createElement('div');
-            eventoElemento.className = 'event';
-            eventoElemento.innerHTML = `
-                <p><strong>Horario:</strong> ${hora}:${minutos < 10 ? '0' + minutos : minutos}</p>
-                <p><strong>Encargado:</strong> ${evento.Encargado}</p>
-                <p><strong>Razón:</strong> ${evento.Razon}</p>
-            `;
+            if (celda) {
+                celda.innerHTML = `
+                  <div class="event bg-blue-100 p-2 mb-1 rounded">
+                    <p><strong>Encargado:</strong> ${evento.Encargado}</p>
+                    <p><strong>Razón:</strong> ${evento.Razon}</p>
+                  </div>
+                `;
+              }
 
-            // Añadir evento al calendario
-            celdaCalendario.appendChild(eventoElemento);
         });
     }
 
@@ -102,31 +114,18 @@ export default function Calentario() {
                 <div className="border-b py-5">17:00 - 18:10</div>
                 <div className="border-b py-5">18:30 - 19:40</div>
             </div>
-                <div className="border-b py-1"></div>
-            <div >
                 
-            </div>
-      
-            <div >
-                
-            </div>
-            <div >
-                
-            </div>
-            <div >
-                
-            </div>
-            <div >
-                
-            </div>
-            <div >
-                
-            </div>
-
-            <div >
-                
-            </div>
-
+            {Array(7).fill(null).map((_, dia) => (
+          <div key={dia} className="mx-auto">
+            {Array(8).fill(null).map((_, hora) => (
+              <div
+                key={`${dia}-${hora}`}
+                id={`celda-${dia + 1}-${hora}`}
+                className="py-5"
+              ></div>
+            ))}
+          </div>
+        ))}
         </div>
     </div>
 		</>

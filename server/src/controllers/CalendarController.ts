@@ -72,7 +72,7 @@ export class CalendarController {
 		try {
 			const list_bloques = await Dias.findAll({
 				attributes: { exclude: ["createdAt", "updatedAt", "Id"] },
-				include: [{ model: Bloque, attributes: ["Codigo", "Horario", "Encargado", "Razon"], required: true }],
+				include: [{ model: Bloque, attributes: ["Codigo", "Horario", "Encargado", "Razon", "Dia_Id"], required: true }],
 			});
 			res.send(list_bloques);
 		} catch (error) {
