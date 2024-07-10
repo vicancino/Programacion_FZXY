@@ -33,3 +33,14 @@ export async function listarBloques() {
 		}
 	}
 }
+
+export async function fechaHoy() {
+	const hoy = new Date()
+	hoy.setHours(hoy.getHours() - 3);
+	const diasDeLaSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado','Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+	return {
+		hoy: hoy?.toISOString().slice(0, 10)?? '', 
+		dia: diasDeLaSemana[hoy.getDay()] ?? '',
+		semana: [diasDeLaSemana[hoy.getDay()], diasDeLaSemana[hoy.getDay()+1], diasDeLaSemana[hoy.getDay()+2], diasDeLaSemana[hoy.getDay()+3], diasDeLaSemana[hoy.getDay()+4], diasDeLaSemana[hoy.getDay()+5], diasDeLaSemana[hoy.getDay()+6]] ?? '',
+	};
+}
