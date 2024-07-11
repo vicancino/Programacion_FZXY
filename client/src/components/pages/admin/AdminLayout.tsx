@@ -15,7 +15,7 @@ function AdminLayout() {
 						<button onClick={() => navigate("/asistencia")}>Asistencia</button>
 					</div>
 					<div className="mt-2 font-bold text-xl text-gray-200 hover:bg-slate-600 rounded-lg">
-						<button onClick={() => navigate("/nuevo-registro-usuario")}>Nuevo Usuario</button>
+						<button onClick={() => navigate("/register")}>Nuevo Usuario</button>
 					</div>
 					<div className="mt-2 font-bold text-xl text-gray-200 hover:bg-slate-600 rounded-lg">
 						<button onClick={() => navigate("/calendario")}>Calendario</button>

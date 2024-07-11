@@ -18,6 +18,11 @@ class Bloque extends Model {
 	declare Dia_Id: number;
 
 	@Column({
+		type: DataType.INTEGER,
+	})
+	declare Hora_Id: number;
+
+	@Column({
 		type: DataType.STRING,
 	})
 	declare Codigo: string;

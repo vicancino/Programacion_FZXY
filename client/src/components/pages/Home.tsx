@@ -83,7 +83,9 @@ function Home() {
 										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
 										Actividades
 									</button>
-									<button className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
+									<button 
+										onClick={() => navigate("/calendario")}
+										className="text-white hover:bg-cyan-800 px-3 py-2 rounded-md text-lg font-medium cursor-pointer">
 										Calendario
 									</button>
 								</div>

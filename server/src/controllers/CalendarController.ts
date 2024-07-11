@@ -20,6 +20,7 @@ export class CalendarController {
 			// TODO validar 1: la informacion del bloque entrante  2: que el bloque entrante no exista previamente
 			const new_bloque = new Bloque();
 			new_bloque.Dia_Id = dia.Id;
+			new_bloque.Hora_Id = req.body.Hora_Id;
 			new_bloque.Horario = req.body.Horario;
 			new_bloque.Razon = req.body.Razon;
 			new_bloque.Codigo = req.body.Codigo;
@@ -72,7 +73,7 @@ export class CalendarController {
 		try {
 			const list_bloques = await Dias.findAll({
 				attributes: { exclude: ["createdAt", "updatedAt", "Id"] },
-				include: [{ model: Bloque, attributes: ["Codigo", "Horario", "Encargado", "Razon", "Dia_Id"], required: true }],
+				include: [{ model: Bloque, attributes: ["Codigo", "Horario", "Encargado", "Razon", "Dia_Id", "Hora_Id"], required: true }],
 			});
 			res.send(list_bloques);
 		} catch (error) {

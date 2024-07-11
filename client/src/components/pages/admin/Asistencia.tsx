@@ -88,53 +88,63 @@ export default function Entrada() {
 
 	return (
 		<>
-			<div>
-				<div className="text-center text-3xl font-bold">Bienvenido al Registro de Asistencia</div>
-				<div className="text-center text-2xl font-bold">Marcar Asistencia</div>
-				<div className="text-center items-center">
-					<div className="flex justify-center">
-						<form onSubmit={handleSubmit(handleAsistencia)}>
-							<div>
-								<label>Nombre</label>
-								<input
-									type="name"
-									placeholder="Nombre de Registro"
-									{...register("name", {
-										required: "El Nombre de usuario es obligatorio",
-									})}
-								/>
-								{errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-							</div>
-							<div className="mt-3">
-								<label htmlFor="email">Email</label>
-								<input
-									id="email"
-									type="email"
-									placeholder="Email de Registro"
-									{...register("email", {
-										required: "El Email de registro es obligatorio",
-										pattern: {
-											value: /\S+@\S+\.\S+/,
-											message: "E-mail no válido",
-										},
-									})}
-								/>
-								{errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-							</div>
-							<input type="submit" value="Marcar" />
-						</form>
-					</div>
-				</div>
+  <div className="flex flex-col items-center">
+    <div className="text-center text-3xl font-bold py-5">Bienvenido al Registro de Asistencia</div>
+    <div className="text-center text-2xl font-bold py-5">Marcar Asistencia</div>
+    <div className="flex justify-center">
+      <form onSubmit={handleSubmit(handleAsistencia)} className="w-full max-w-sm">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+          <input
+            type="text"
+            placeholder="Nombre de Registro"
+            {...register("name", {
+              required: "El Nombre de usuario es obligatorio",
+            })}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.name && <p className="text-red-500 text-xs italic">{errors.name.message}</p>}
+        </div>
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Email de Registro"
+            {...register("email", {
+              required: "El Email de registro es obligatorio",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "E-mail no válido",
+              },
+            })}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
+        </div>
+        <div className="flex items-center justify-between">
+          <input
+            type="submit"
+            value="Marcar"
+            className="bg-cyan-700 hover:bg-cyan-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          />
+        </div>
+      </form>
+    </div>
+    <nav className="text-center mt-4">
+      <Link to={"/nuevo-registro-usuario"} className="text-cyan-700 hover:text-cyan-900">Registrar nuevo Usuario</Link>
+    </nav>
+    <div className="text-center text-3xl mt-10 font-bold">Listado de Usuarios Activos</div>
+    <div className="text-center">
+		<ul className="list-disc list-inside">
+			{user_list.map((user, index) => (
+			<li key={index} className="text-gray-700 text-sm py-1">{user}</li>
+			))}
+		</ul>
+    </div>
+  </div>
+  <ToastContainer />
+</>
 
-				<nav className="text-center mt-4">
-					<Link to={"/nuevo-registro-usuario"}>Registrar nuevo Usuario</Link>
-				</nav>
-				<div className="text-center text-3xl mt-10 font-bold">Listado de Usuarios Activos</div>
-				<div className="text-center">
-					<ul>{user_list}</ul>
-				</div>
-			</div>
-			<ToastContainer />
-		</>
 	);
 }
